@@ -7,9 +7,9 @@ using Core.Features.Zona;
 
 namespace Persistence
 {
-    public class AppContext:DbContext
+    public class SolicitudesPlatformContext : DbContext
     {
-        public AppContext(DbContextOptions<AppContext> options):base(options)
+        public SolicitudesPlatformContext(DbContextOptions<SolicitudesPlatformContext> options):base(options)
         {
             
         }
