@@ -1,6 +1,8 @@
 ﻿using Core.Features.Base;
 using Core.Features.Genero;
 using Core.Features.TipoUsuario;
+using Core.Features.UsuarioTipoSolicitud;
+using Core.Features.UsuarioZona;
 
 namespace Core.Features.Usuario
 {
@@ -16,5 +18,7 @@ namespace Core.Features.Usuario
 
         public GeneroEntity Genero { get; set; }
         public TipoUsuarioEntity TipoUsuario { get; set; }
+        public IEnumerable<UsuarioZonaEntity> UsuariosZona { get; set; }
+        public IEnumerable<UsuarioTipoSolicitudEntity> UsuariosTipoSolicitud { get; set; }
     }
 }
