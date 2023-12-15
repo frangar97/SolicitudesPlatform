@@ -2,6 +2,7 @@
 using Core.Features.Genero;
 using Core.Features.TipoSolicitud;
 using Core.Features.TipoUsuario;
+using Core.Features.Usuario;
 using Core.Features.Zona;
 
 namespace Core.Features.Base
@@ -13,6 +14,7 @@ namespace Core.Features.Base
         public IBaseRepository<TipoUsuarioEntity> TipoUsuarioRepository { get; }
         public IBaseRepository<TipoSolicitudEntity> TipoSolicitudRepository { get; }
         public IBaseRepository<EstadoSolicitudEntity> EstadoSolicitudRepository { get; }
+        public IBaseRepository<UsuarioEntity> UsuarioRepository { get; }
         Task SaveChangesAsync();
         void SaveChanges();
     }
