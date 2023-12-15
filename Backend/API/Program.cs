@@ -1,4 +1,8 @@
 using API;
+using Core.Features.Base;
+using Core.Features.EstadoSolicitud.Services;
+using Core.Features.Zona.Service;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -18,6 +22,11 @@ builder.Services.AddDbContextPool<SolicitudesPlatformContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SolicitudPlatform"));
 });
+
+builder.Services.AddScoped(typeof(IBaseRepository<>),typeof(BaseRepository<>));
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IZonaService,ZonaService>();
+builder.Services.AddTransient<IEstadoSolicitudService, EstadoSolicitudService>();
 
 var app = builder.Build();
 
