@@ -28,6 +28,10 @@ namespace Persistence
             modelBuilder.ApplyConfiguration(new TipoUsuarioConfiguration());
             modelBuilder.ApplyConfiguration(new EstadoSolicitudConfiguration());
             modelBuilder.ApplyConfiguration(new ZonaConfiguration());
+            modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
+            modelBuilder.ApplyConfiguration(new SolicitudConfiguration());
+            modelBuilder.ApplyConfiguration(new UsuarioTipoSolicitudConfiguration());
+            modelBuilder.ApplyConfiguration(new UsuarioZonaConfiguration());
 
             modelBuilder.Entity<GeneroEntity>()
                 .HasData(
