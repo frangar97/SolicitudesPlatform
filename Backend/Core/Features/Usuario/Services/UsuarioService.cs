@@ -57,7 +57,6 @@ namespace Core.Features.Usuario.Services
                 Nombre = createUsuarioDTO.Nombre,
                 Apellido = createUsuarioDTO.Apellido,
                 Codigo = createUsuarioDTO.Codigo,
-                Password = passwordEncriptada,
                 Genero = generoEntity.Tipo,
                 TipoUsuario = tipoUsuarioEntity.Tipo
             };
