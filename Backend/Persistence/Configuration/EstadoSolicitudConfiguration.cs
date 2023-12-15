@@ -16,6 +16,9 @@ namespace Persistence.Configuration
 
             builder.Property(x => x.CreatedDate)
                 .HasDefaultValueSql("GETDATE()");
+
+            builder.Property(x => x.ModifiedDate)
+                .HasDefaultValueSql("GETDATE()");
         }
     }
 }

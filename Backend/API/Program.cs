@@ -1,4 +1,6 @@
 using API;
+using Microsoft.EntityFrameworkCore;
+using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,11 @@ builder.Services.AddControllers(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContextPool<SolicitudesPlatformContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SolicitudPlatform"));
+});
 
 var app = builder.Build();
 
