@@ -1,6 +1,8 @@
 using API;
 using Core.Features.Base;
 using Core.Features.EstadoSolicitud.Services;
+using Core.Features.TipoSolicitud.Services;
+using Core.Features.TipoUsuario.Services;
 using Core.Features.Zona.Service;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +29,8 @@ builder.Services.AddScoped(typeof(IBaseRepository<>),typeof(BaseRepository<>));
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IZonaService,ZonaService>();
 builder.Services.AddTransient<IEstadoSolicitudService, EstadoSolicitudService>();
+builder.Services.AddTransient<ITipoUsuarioService, TipoUsuarioService>();
+builder.Services.AddTransient<ITipoSolicitudService, TipoSolicitudService>();
 
 var app = builder.Build();
 
