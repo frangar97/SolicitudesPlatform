@@ -5,14 +5,18 @@ using Core.Features.TipoSolicitud;
 using Core.Features.TipoUsuario;
 using Core.Features.Zona;
 using Persistence.Configuration;
+using Core.Features.Usuario;
+using Core.Features.Solicitud;
+using Core.Features.UsuarioZona;
+using Core.Features.UsuarioTipoSolicitud;
 
 namespace Persistence
 {
     public class SolicitudesPlatformContext : DbContext
     {
-        public SolicitudesPlatformContext(DbContextOptions<SolicitudesPlatformContext> options):base(options)
+        public SolicitudesPlatformContext(DbContextOptions<SolicitudesPlatformContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<GeneroEntity> Genero { get; set; }
@@ -20,6 +24,10 @@ namespace Persistence
         public DbSet<TipoUsuarioEntity> TipoUsuario { get; set; }
         public DbSet<EstadoSolicitudEntity> EstadoSolicitud { get; set; }
         public DbSet<ZonaEntity> Zona { get; set; }
+        public DbSet<UsuarioEntity> Usuario { get; set; }
+        public DbSet<SolicitudEntity> Solicitud { get; set; }
+        public DbSet<UsuarioZonaEntity> UsuarioZona { get; set; }
+        public DbSet<UsuarioTipoSolicitudEntity> UsuarioSolicitud { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
