@@ -3,8 +3,11 @@ using Core.Features.Base;
 using Core.Features.EstadoSolicitud.Services;
 using Core.Features.TipoSolicitud.Services;
 using Core.Features.TipoUsuario.Services;
+using Core.Features.Usuario.Services;
 using Core.Features.Zona.Service;
+using Core.Services;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -31,6 +34,8 @@ builder.Services.AddTransient<IZonaService,ZonaService>();
 builder.Services.AddTransient<IEstadoSolicitudService, EstadoSolicitudService>();
 builder.Services.AddTransient<ITipoUsuarioService, TipoUsuarioService>();
 builder.Services.AddTransient<ITipoSolicitudService, TipoSolicitudService>();
+builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+builder.Services.AddSingleton<IHashService, HashService>();
 
 var app = builder.Build();
 
