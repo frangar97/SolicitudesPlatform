@@ -37,26 +37,38 @@ export const AppPage = () => {
                 <div className="col-md-2">
                     <nav>
                         <div className="list-group">
-                            <Link to="/app" className="list-group-item list-group-item-action">
+                            <Link to="/" className="list-group-item list-group-item-action">
                                 Home
                             </Link>
                             <Link
-                                to="/app/usuarios"
+                                to="/usuarios"
                                 className="list-group-item list-group-item-action"
                             >
                                 Usuarios
                             </Link>
                             <Link
-                                to="/app/solicitudes"
+                                to="/solicitudes"
                                 className="list-group-item list-group-item-action"
                             >
                                 Solicitudes
                             </Link>
                             <Link
-                                to="/app/tipos-solicitudes"
+                                to="/tipos-solicitudes"
                                 className="list-group-item list-group-item-action"
                             >
                                 Tipos de solicitudes
+                            </Link>
+                            <Link
+                                to="/usuario-zona"
+                                className="list-group-item list-group-item-action"
+                            >
+                                Usuario/Zona
+                            </Link>
+                            <Link
+                                to="/usuario-tiposolicitud"
+                                className="list-group-item list-group-item-action"
+                            >
+                                Usuario/Tipo Solicitud
                             </Link>
                         </div>
                     </nav>

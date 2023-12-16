@@ -3,19 +3,12 @@ import axios from "axios";
 import { APIURL } from "../../../constants";
 import { ITipoSolicitud } from "../interface/ITipoSolicitud";
 import { TipoSolicitudTable } from "../components/TipoSolicitudTable";
+import { useFetchTipoSolicitud } from "../hooks/useFetchTipoSolicitud";
 
 export const TipoSolicitudPage = () => {
-    const [tiposSolicitud, setTiposSolicitud] = useState<ITipoSolicitud[]>([]);
+    const { tiposSolicitud, setTiposSolicitud } = useFetchTipoSolicitud();
     const [tipo, setTipo] = useState<string>("");
 
-    const obtenerTipoSolicitudes = async () => {
-        try {
-            const request = await axios.get<ITipoSolicitud[]>(`${APIURL}/api/solicitud/tipos`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
-            setTiposSolicitud(request.data);
-        } catch (err) {
-
-        }
-    }
 
     const crearTipoSolicitud = async () => {
         try {
@@ -32,9 +25,6 @@ export const TipoSolicitudPage = () => {
         }
     }
 
-    useEffect(() => {
-        obtenerTipoSolicitudes();
-    }, []);
 
     return (
         <>
