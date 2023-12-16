@@ -30,6 +30,20 @@ namespace API.Controllers
             return Ok(solicitudDTO);
         }
 
+        [HttpPatch("aprobar/{id}")]
+        public async Task<IActionResult> AprobarSolicitud(int id)
+        {
+            await _solicitudService.AprobarSolicitud(id);
+            return Ok();
+        }
+
+        [HttpPatch("cancelar/{id}")]
+        public async Task<IActionResult> CancelarSolicitud(int id)
+        {
+            await _solicitudService.CancelarSolicitud(id);
+            return Ok();
+        }
+
         [HttpGet("estados")]
         public IActionResult GetEstadosSolicitud()
         {

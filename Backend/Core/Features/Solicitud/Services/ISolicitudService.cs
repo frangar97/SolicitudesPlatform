@@ -5,5 +5,7 @@ namespace Core.Features.Solicitud.Services
     public interface ISolicitudService
     {
         Task<SolicitudDTO> CreateSolicitud(int usuarioId,CreateSolicitudDTO createSolicitudDTO);
+        Task AprobarSolicitud(int solicitudId);
+        Task CancelarSolicitud(int solicitudId);
     }
 }

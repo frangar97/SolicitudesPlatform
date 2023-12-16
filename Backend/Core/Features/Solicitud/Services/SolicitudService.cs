@@ -15,6 +15,37 @@ namespace Core.Features.Solicitud.Services
         {
             _unitOfWork = unitOfWork;
         }
+
+        public async Task AprobarSolicitud(int solicitudId)
+        {
+            SolicitudEntity? solicitudEntity = await _unitOfWork.SolicitudRepository.FindByIdAsync(solicitudId);
+            if(solicitudEntity == null)
+            {
+                throw new BusinessException("la solicitud no existe");
+            }
+
+            solicitudEntity.EstadoSolicitudId = (int)EstadoSolicitudEnum.Aprobado;
+            solicitudEntity.ModifiedDate = DateTime.Now;
+
+            _unitOfWork.SolicitudRepository.Update(solicitudEntity);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task CancelarSolicitud(int solicitudId)
+        {
+            SolicitudEntity? solicitudEntity = await _unitOfWork.SolicitudRepository.FindByIdAsync(solicitudId);
+            if (solicitudEntity == null)
+            {
+                throw new BusinessException("la solicitud no existe");
+            }
+
+            solicitudEntity.EstadoSolicitudId = (int)EstadoSolicitudEnum.Cancelado;
+            solicitudEntity.ModifiedDate = DateTime.Now;
+
+            _unitOfWork.SolicitudRepository.Update(solicitudEntity);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
         public async Task<SolicitudDTO> CreateSolicitud(int usuarioId, CreateSolicitudDTO createSolicitudDTO)
         {
             UsuarioEntity? usuarioEntity = await _unitOfWork.UsuarioRepository.FindByIdAsync(usuarioId);
