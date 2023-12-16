@@ -18,11 +18,11 @@ namespace API.Controllers
         }
 
         [HttpPost("registrar")]
-        public async Task<IActionResult> RegisterUsuario([FromForm]CreateUsuarioDTO createUsuarioDTO)
+        public async Task<IActionResult> RegisterUsuario([FromForm] CreateUsuarioDTO createUsuarioDTO)
         {
             UsuarioDTO usuario = await _usuarioService.CreateUsuario(createUsuarioDTO);
 
-                if(Request.Form.Files.Count>0)
+            if (Request.Form.Files.Count > 0)
             {
                 string imageUrl = _mediaUpload.UploadImage(Request.Form.Files[0]);
                 await _usuarioService.UpdateUsuarioImage(usuario.Id, imageUrl);

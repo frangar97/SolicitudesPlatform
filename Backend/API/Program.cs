@@ -1,4 +1,5 @@
 using API;
+using API.OptionSetup;
 using Core.Features.Base;
 using Core.Features.EstadoSolicitud.Services;
 using Core.Features.TipoSolicitud.Services;
@@ -40,6 +41,8 @@ builder.Services.AddSingleton<IHashService, HashService>();
 builder.Services.AddScoped<IMediaUpload, MediaUpload>();
 
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
+builder.Services.ConfigureOptions<JwtOptionsSetup>();
+builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
 var app = builder.Build();
 
