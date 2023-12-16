@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { LoginPage } from './pages/LoginPage'
-import { AppPage } from './pages/AppPage'
+import { LoginPage } from './features/auth/pages/LoginPage'
+import { AppPage } from './global/AppPage'
+import { UsuarioPage } from './features/usuario/pages/UsuarioPage'
 
 function App() {
 
@@ -9,7 +10,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/app' element={<AppPage />} />
+        <Route path='/app' element={<AppPage />} >
+          <Route path="usuarios" element={<UsuarioPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )

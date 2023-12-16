@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, FormEvent } from "react";
-import { APIURL } from "../constants";
+import { APIURL } from "../../../constants";
 import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {

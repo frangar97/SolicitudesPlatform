@@ -41,7 +41,7 @@ export const AppPage = () => {
                                 Home
                             </Link>
                             <Link
-                                to="/usuarios"
+                                to="/app/usuarios"
                                 className="list-group-item list-group-item-action"
                             >
                                 Usuarios
