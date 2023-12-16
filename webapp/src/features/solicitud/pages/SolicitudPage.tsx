@@ -16,13 +16,31 @@ export const SolicitudPage = () => {
         }
     }
 
+    const aprobarSolicitud = async (id: number) => {
+        try {
+            await axios.put<ISolicitud[]>(`${APIURL}/api/solicitud/aprobar/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            await obtenerSolicitudes();
+        } catch (err) {
+
+        }
+    }
+
+    const cancelarSolicitud = async (id: number) => {
+        try {
+            await axios.put<ISolicitud[]>(`${APIURL}/api/solicitud/cancelar/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            await obtenerSolicitudes();
+        } catch (err) {
+
+        }
+    }
+
     useEffect(() => {
         obtenerSolicitudes();
     }, []);
 
     return (
         <>
-            <SolicitudTable solicitudes={solicitudes} estado="Pendiente" />
+            <SolicitudTable solicitudes={solicitudes} aprobarSolicitud={aprobarSolicitud} cancelarSolicitud={cancelarSolicitud} estado="Pendiente" />
         </>
     )
 }

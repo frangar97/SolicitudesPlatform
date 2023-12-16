@@ -95,7 +95,7 @@ namespace Core.Features.Solicitud.Services
         {
             IEnumerable<int> zonasUsuario = _unitOfWork.UsuarioZonaRepository.Where(x => x.UsuarioId == usuarioId && x.Activo == true).Select(x => x.ZonaId);
             IEnumerable<int> tipoSolicitud = _unitOfWork.UsuarioTipoSolicitudRepository.Where(x => x.UsuarioId == usuarioId && x.Activo == true).Select(x => x.TipoSolicitudId);
-            IEnumerable<SolicitudEntity> solicitudes = _unitOfWork.SolicitudRepository.ObtenerSolicitudesAprobacion(zonasUsuario, tipoSolicitud);
+            IEnumerable<SolicitudEntity> solicitudes = _unitOfWork.SolicitudRepository.ObtenerSolicitudesAprobacion(zonasUsuario, tipoSolicitud).Where(x => (DateTime.Now - x.CreatedDate).Hours <= 24);
 
             return solicitudes.Select(x => new SolicitudDTO
             {
