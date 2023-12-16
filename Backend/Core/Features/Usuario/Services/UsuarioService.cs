@@ -63,5 +63,18 @@ namespace Core.Features.Usuario.Services
 
             return usuarioDTO;
         }
+
+        public async Task UpdateUsuarioImage(int usuarioId, string imagenUrl)
+        {
+            UsuarioEntity? usuarioEntity = await _unitOfWork.UsuarioRepository.FindByIdAsync(usuarioId);
+            if (usuarioEntity == null)
+            {
+                throw new BusinessException($"el usuario con el id{usuarioId} no existe");
+            }
+
+            usuarioEntity.ImagenUrl = imagenUrl;
+            _unitOfWork.UsuarioRepository.Update(usuarioEntity);
+            await _unitOfWork.SaveChangesAsync();
+        }
     }
 }

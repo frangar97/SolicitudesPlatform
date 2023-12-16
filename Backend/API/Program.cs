@@ -6,6 +6,7 @@ using Core.Features.TipoUsuario.Services;
 using Core.Features.Usuario.Services;
 using Core.Features.Zona.Service;
 using Core.Services;
+using Infrastructure.MediaUpload;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,9 @@ builder.Services.AddTransient<ITipoUsuarioService, TipoUsuarioService>();
 builder.Services.AddTransient<ITipoSolicitudService, TipoSolicitudService>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 builder.Services.AddSingleton<IHashService, HashService>();
+builder.Services.AddScoped<IMediaUpload, MediaUpload>();
+
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
 
 var app = builder.Build();
 
