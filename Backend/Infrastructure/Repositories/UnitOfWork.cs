@@ -1,6 +1,7 @@
 ﻿using Core.Features.Base;
 using Core.Features.EstadoSolicitud;
 using Core.Features.Genero;
+using Core.Features.Solicitud;
 using Core.Features.TipoSolicitud;
 using Core.Features.TipoUsuario;
 using Core.Features.Usuario;
@@ -22,7 +23,10 @@ namespace Infrastructure.Repositories
         public IBaseRepository<TipoSolicitudEntity>? tipoSolicitudRepository;
 
         public IBaseRepository<EstadoSolicitudEntity>? estadoSolicitudRepository;
+
         public IBaseRepository<UsuarioEntity>? usuarioRepository;
+
+        public IBaseRepository<SolicitudEntity>? solicitudRepository;
 
         public UnitOfWork(SolicitudesPlatformContext context)
         {
@@ -86,6 +90,16 @@ namespace Infrastructure.Repositories
                 usuarioRepository ??= new BaseRepository<UsuarioEntity>(_context);
 
                 return usuarioRepository;
+            }
+        }
+
+        public IBaseRepository<SolicitudEntity> SolicitudRepository
+        {
+            get
+            {
+                solicitudRepository ??= new BaseRepository<SolicitudEntity>(_context);
+
+                return solicitudRepository;
             }
         }
 

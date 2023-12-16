@@ -2,6 +2,7 @@ using API;
 using API.OptionSetup;
 using Core.Features.Base;
 using Core.Features.EstadoSolicitud.Services;
+using Core.Features.Solicitud.Services;
 using Core.Features.TipoSolicitud.Services;
 using Core.Features.TipoUsuario.Services;
 using Core.Features.Usuario.Services;
@@ -37,6 +38,7 @@ builder.Services.AddTransient<IEstadoSolicitudService, EstadoSolicitudService>()
 builder.Services.AddTransient<ITipoUsuarioService, TipoUsuarioService>();
 builder.Services.AddTransient<ITipoSolicitudService, TipoSolicitudService>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+builder.Services.AddTransient<ISolicitudService, SolicitudService>();
 builder.Services.AddSingleton<IHashService, HashService>();
 builder.Services.AddScoped<IMediaUpload, MediaUpload>();
 
