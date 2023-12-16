@@ -47,7 +47,7 @@ export const AppPage = () => {
                                 Usuarios
                             </Link>
                             <Link
-                                to="/solicitudes"
+                                to="/app/solicitudes"
                                 className="list-group-item list-group-item-action"
                             >
                                 Solicitudes
