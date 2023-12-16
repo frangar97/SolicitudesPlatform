@@ -3,6 +3,7 @@ import { LoginPage } from './features/auth/pages/LoginPage'
 import { AppPage } from './global/AppPage'
 import { UsuarioPage } from './features/usuario/pages/UsuarioPage'
 import { SolicitudPage } from './features/solicitud/pages/SolicitudPage'
+import { TipoSolicitudPage } from './features/solicitud/pages/TipoSolicitud'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Route path='/app' element={<AppPage />} >
           <Route path="usuarios" element={<UsuarioPage />} />
           <Route path="solicitudes" element={<SolicitudPage />} />
+          <Route path="tipos-solicitudes" element={<TipoSolicitudPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

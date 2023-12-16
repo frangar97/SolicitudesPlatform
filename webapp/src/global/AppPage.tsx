@@ -53,7 +53,7 @@ export const AppPage = () => {
                                 Solicitudes
                             </Link>
                             <Link
-                                to="/tipos-solicitudes"
+                                to="/app/tipos-solicitudes"
                                 className="list-group-item list-group-item-action"
                             >
                                 Tipos de solicitudes
