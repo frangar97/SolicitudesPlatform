@@ -4,11 +4,13 @@ using Core.Features.Solicitud.DTO;
 using Core.Features.Solicitud.Services;
 using Core.Features.TipoSolicitud.DTO;
 using Core.Features.TipoSolicitud.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SolicitudController : ControllerBase
