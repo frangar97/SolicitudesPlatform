@@ -4,6 +4,8 @@ using Core.Features.Solicitud;
 using Core.Features.TipoSolicitud;
 using Core.Features.TipoUsuario;
 using Core.Features.Usuario;
+using Core.Features.UsuarioTipoSolicitud;
+using Core.Features.UsuarioZona;
 using Core.Features.Zona;
 
 namespace Core.Features.Base
@@ -15,8 +17,10 @@ namespace Core.Features.Base
         public IBaseRepository<TipoUsuarioEntity> TipoUsuarioRepository { get; }
         public IBaseRepository<TipoSolicitudEntity> TipoSolicitudRepository { get; }
         public IBaseRepository<EstadoSolicitudEntity> EstadoSolicitudRepository { get; }
+        public IBaseRepository<UsuarioZonaEntity> UsuarioZonaRepository { get; }
+        public IBaseRepository<UsuarioTipoSolicitudEntity> UsuarioTipoSolicitudRepository { get; }
         public IUsuarioRepository UsuarioRepository { get; }
-        public IBaseRepository<SolicitudEntity> SolicitudRepository { get; }
+        public ISolicitudRepository SolicitudRepository { get; }
         Task SaveChangesAsync();
         void SaveChanges();
     }

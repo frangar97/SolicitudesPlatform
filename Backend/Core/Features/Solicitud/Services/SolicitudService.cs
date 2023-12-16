@@ -90,5 +90,22 @@ namespace Core.Features.Solicitud.Services
 
             return solicitudDTO;
         }
+
+        public IEnumerable<SolicitudDTO> ObtnerSolicitudesAprobacionUsuario(int usuarioId)
+        {
+            IEnumerable<int> zonasUsuario = _unitOfWork.UsuarioZonaRepository.Where(x => x.UsuarioId == usuarioId && x.Activo == true).Select(x => x.ZonaId);
+            IEnumerable<int> tipoSolicitud = _unitOfWork.UsuarioTipoSolicitudRepository.Where(x => x.UsuarioId == usuarioId && x.Activo == true).Select(x => x.TipoSolicitudId);
+            IEnumerable<SolicitudEntity> solicitudes = _unitOfWork.SolicitudRepository.ObtenerSolicitudesAprobacion(zonasUsuario, tipoSolicitud);
+
+            return solicitudes.Select(x => new SolicitudDTO
+            {
+                Id = x.Id,
+                Descripcion = x.Descripcion,
+                Zona = x.Zona.Nombre,
+                TipoSolicitud = x.TipoSolicitud.Tipo,
+                Usuario = $"{x.Usuario.Nombre} {x.Usuario.Apellido}",
+                EstadoSolicitud = x.EstadoSolicitud.Estado,
+            });
+        }
     }
 }

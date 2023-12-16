@@ -5,6 +5,8 @@ using Core.Features.Solicitud;
 using Core.Features.TipoSolicitud;
 using Core.Features.TipoUsuario;
 using Core.Features.Usuario;
+using Core.Features.UsuarioTipoSolicitud;
+using Core.Features.UsuarioZona;
 using Core.Features.Zona;
 using Persistence;
 
@@ -24,9 +26,13 @@ namespace Infrastructure.Repositories
 
         public IBaseRepository<EstadoSolicitudEntity>? estadoSolicitudRepository;
 
+        public IBaseRepository<UsuarioZonaEntity>? usuarioZonaRepository;
+
+        public IBaseRepository<UsuarioTipoSolicitudEntity>? usuarioTipoSolicitudRepository;
+
         public IUsuarioRepository? usuarioRepository;
 
-        public IBaseRepository<SolicitudEntity>? solicitudRepository;
+        public ISolicitudRepository? solicitudRepository;
 
         public UnitOfWork(SolicitudesPlatformContext context)
         {
@@ -93,13 +99,33 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public IBaseRepository<SolicitudEntity> SolicitudRepository
+        public ISolicitudRepository SolicitudRepository
         {
             get
             {
-                solicitudRepository ??= new BaseRepository<SolicitudEntity>(_context);
+                solicitudRepository ??= new SolicitudRepository(_context);
 
                 return solicitudRepository;
+            }
+        }
+
+        public IBaseRepository<UsuarioZonaEntity> UsuarioZonaRepository
+        {
+            get
+            {
+                usuarioZonaRepository ??= new BaseRepository<UsuarioZonaEntity>(_context);
+
+                return usuarioZonaRepository;
+            }
+        }
+
+        public IBaseRepository<UsuarioTipoSolicitudEntity> UsuarioTipoSolicitudRepository
+        {
+            get
+            {
+                usuarioTipoSolicitudRepository ??= new BaseRepository<UsuarioTipoSolicitudEntity>(_context);
+
+                return usuarioTipoSolicitudRepository;
             }
         }
 
