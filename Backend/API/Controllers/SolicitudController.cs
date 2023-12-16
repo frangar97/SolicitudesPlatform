@@ -5,6 +5,7 @@ using Core.Features.Solicitud.Services;
 using Core.Features.TipoSolicitud.DTO;
 using Core.Features.TipoSolicitud.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -26,7 +27,8 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateSolicitud([FromBody] CreateSolicitudDTO createSolicitudDTO)
         {
-            SolicitudDTO solicitudDTO = await _solicitudService.CreateSolicitud(1, createSolicitudDTO);
+            int usuarioId = Convert.ToInt32(HttpContext.User.FindFirstValue("UserID"));
+            SolicitudDTO solicitudDTO = await _solicitudService.CreateSolicitud(usuarioId, createSolicitudDTO);
             return Ok(solicitudDTO);
         }
 

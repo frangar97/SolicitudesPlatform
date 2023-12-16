@@ -11,10 +11,12 @@ namespace Core.Features.Usuario.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHashService _hashService;
-        public UsuarioService(IUnitOfWork unitOfWork,IHashService hashService)
+        private IJwtService _jwtService;
+        public UsuarioService(IUnitOfWork unitOfWork,IHashService hashService, IJwtService jwtService)
         {
             _unitOfWork = unitOfWork;
             _hashService = hashService;
+            _jwtService = jwtService;
         }
         public async Task<UsuarioDTO> CreateUsuario(CreateUsuarioDTO createUsuarioDTO)
         {
@@ -62,6 +64,24 @@ namespace Core.Features.Usuario.Services
             };
 
             return usuarioDTO;
+        }
+
+        public async Task<string> LoginUsuarioAsync(LoginUsuarioDTO loginUsuarioDTO)
+        {
+            UsuarioEntity? usuarioEntity = await _unitOfWork.UsuarioRepository.FirstOrDefaultAsync(x => x.Codigo == loginUsuarioDTO.Codigo);
+            if (usuarioEntity == null)
+            {
+                throw new BusinessException("Usuario o contraseña incorrectos.");
+            }
+
+            bool esCredencialDiferente = !(_hashService.CompareStringHash(loginUsuarioDTO.Password, usuarioEntity.Password));
+            if (esCredencialDiferente)
+            {
+                throw new BusinessException("Usuario o contraseña incorrectos.");
+            }
+
+            string token = _jwtService.GenerateJWT(usuarioEntity.Id, usuarioEntity.Codigo);
+            return token;
         }
 
         public async Task UpdateUsuarioImage(int usuarioId, string imagenUrl)

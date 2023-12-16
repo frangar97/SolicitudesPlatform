@@ -6,5 +6,6 @@ namespace Core.Features.Usuario.Services
     {
         Task<UsuarioDTO> CreateUsuario(CreateUsuarioDTO createUsuarioDTO);
         Task UpdateUsuarioImage(int usuarioId,string imagenUrl);
+        Task<string> LoginUsuarioAsync(LoginUsuarioDTO loginUsuarioDTO);
     }
 }

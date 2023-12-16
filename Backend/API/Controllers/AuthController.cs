@@ -31,5 +31,12 @@ namespace API.Controllers
 
             return Ok(usuario);
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginUsuario(LoginUsuarioDTO loginUsuarioDTO)
+        {
+            string token = await _usuarioService.LoginUsuarioAsync(loginUsuarioDTO);
+            return Ok(new { token = token });
+        }
     }
 }
