@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState, FormEvent } from "react";
 import { APIURL } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
+    const navigation = useNavigate();
     const [codigo, setCodigo] = useState("");
     const [password, setPassword] = useState("");
 
@@ -17,6 +19,7 @@ export const LoginPage = () => {
 
             const request = await axios.post<{ token: string }>(`${APIURL}/api/auth/login`, { codigo, password });
             localStorage.setItem("token", request.data.token);
+            navigation("/app", { replace: true });
         } catch (err) {
 
         }
