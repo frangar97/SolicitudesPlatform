@@ -84,6 +84,20 @@ namespace Core.Features.Usuario.Services
             return token;
         }
 
+        public IEnumerable<UsuarioDTO> ObtenerUsuarios()
+        {
+            return _unitOfWork.UsuarioRepository.ObtenerUsuarios().Select(x => new UsuarioDTO
+            {
+                Id = x.Id,
+                Nombre = x.Nombre,
+                Apellido = x.Apellido,
+                Codigo = x.Codigo,
+                Genero = x.Genero.Tipo,
+                TipoUsuario = x.TipoUsuario.Tipo,
+                UrlImagen = x.ImagenUrl
+            });
+        }
+
         public async Task UpdateUsuarioImage(int usuarioId, string imagenUrl)
         {
             UsuarioEntity? usuarioEntity = await _unitOfWork.UsuarioRepository.FindByIdAsync(usuarioId);

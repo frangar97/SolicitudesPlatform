@@ -8,6 +8,6 @@
         public string Codigo { get; set; }
         public string Genero { get; set; }
         public string TipoUsuario { get; set; }
-        public string UrlImagen { get; set; }
+        public string? UrlImagen { get; set; }
     }
 }

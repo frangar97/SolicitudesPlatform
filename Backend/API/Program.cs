@@ -5,6 +5,7 @@ using Core.Features.EstadoSolicitud.Services;
 using Core.Features.Solicitud.Services;
 using Core.Features.TipoSolicitud.Services;
 using Core.Features.TipoUsuario.Services;
+using Core.Features.Usuario;
 using Core.Features.Usuario.Services;
 using Core.Features.Zona.Service;
 using Core.Services;
@@ -69,6 +70,7 @@ builder.Services.AddDbContextPool<SolicitudesPlatformContext>(options =>
 
 builder.Services.AddScoped(typeof(IBaseRepository<>),typeof(BaseRepository<>));
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddTransient<IZonaService,ZonaService>();
 builder.Services.AddTransient<IEstadoSolicitudService, EstadoSolicitudService>();
 builder.Services.AddTransient<ITipoUsuarioService, TipoUsuarioService>();

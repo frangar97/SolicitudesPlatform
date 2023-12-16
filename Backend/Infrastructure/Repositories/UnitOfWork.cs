@@ -24,7 +24,7 @@ namespace Infrastructure.Repositories
 
         public IBaseRepository<EstadoSolicitudEntity>? estadoSolicitudRepository;
 
-        public IBaseRepository<UsuarioEntity>? usuarioRepository;
+        public IUsuarioRepository? usuarioRepository;
 
         public IBaseRepository<SolicitudEntity>? solicitudRepository;
 
@@ -83,11 +83,11 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public IBaseRepository<UsuarioEntity> UsuarioRepository
+        public IUsuarioRepository UsuarioRepository
         {
             get
             {
-                usuarioRepository ??= new BaseRepository<UsuarioEntity>(_context);
+                usuarioRepository ??= new UsuarioRepository(_context);
 
                 return usuarioRepository;
             }
