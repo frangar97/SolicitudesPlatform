@@ -5,5 +5,6 @@ namespace Core.Features.TipoSolicitud.Services
     public interface ITipoSolicitudService
     {
         IEnumerable<TipoSolicitudDTO> GetAllTiposSolicitud();
+        Task<TipoSolicitudDTO> CreateTipoSolicitud(CreateTipoSolicitudDTO createTipoSolicitudDTO);
     }
 }

@@ -43,5 +43,12 @@ namespace API.Controllers
             IEnumerable<TipoSolicitudDTO> tipoSolicitud = _tipoSolicitudService.GetAllTiposSolicitud();
             return Ok(tipoSolicitud);
         }
+
+        [HttpPost("tipos")]
+        public async Task<IActionResult> CreateTipoSolicitud(CreateTipoSolicitudDTO createTipoSolicitudDTO)
+        {
+            TipoSolicitudDTO tipoSolicitud = await _tipoSolicitudService.CreateTipoSolicitud(createTipoSolicitudDTO);
+            return Ok(tipoSolicitud);
+        }
     }
 }
