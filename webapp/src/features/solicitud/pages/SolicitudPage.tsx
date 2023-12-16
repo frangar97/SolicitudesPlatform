@@ -18,7 +18,7 @@ export const SolicitudPage = () => {
 
     const aprobarSolicitud = async (id: number) => {
         try {
-            await axios.put<ISolicitud[]>(`${APIURL}/api/solicitud/aprobar/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            await axios.patch<ISolicitud[]>(`${APIURL}/api/solicitud/aprobar/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
             await obtenerSolicitudes();
         } catch (err) {
 
@@ -27,7 +27,7 @@ export const SolicitudPage = () => {
 
     const cancelarSolicitud = async (id: number) => {
         try {
-            await axios.put<ISolicitud[]>(`${APIURL}/api/solicitud/cancelar/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            await axios.patch<ISolicitud[]>(`${APIURL}/api/solicitud/cancelar/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
             await obtenerSolicitudes();
         } catch (err) {
 
