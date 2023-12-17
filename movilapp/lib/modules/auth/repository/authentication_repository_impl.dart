@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:movilapp/constants/constants.dart';
 import 'package:movilapp/modules/auth/model/genero_model.dart';
 import 'package:movilapp/modules/auth/model/login_model.dart';
+import 'package:movilapp/modules/auth/model/tipo_usuario_model.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
@@ -55,6 +56,62 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       }
     } catch (err) {
       return const Left("Ocurrio un error y no se pudo iniciar sesión");
+    }
+  }
+
+  @override
+  Future<Either<String, List<TipoUsuarioModel>>> obtenerTiposUsuario() async {
+    try {
+      final url = Uri.parse("$apiUrl/api/auth/tipousuario");
+
+      final response =
+          await client.get(url, headers: {"Content-Type": "application/json"});
+
+      if (response.statusCode == 200) {
+        Iterable decodedResp = jsonDecode(response.body);
+        List<TipoUsuarioModel> tiposUsuario = List<TipoUsuarioModel>.from(
+          decodedResp.map(
+            (e) => TipoUsuarioModel.fromJson(e),
+          ),
+        );
+        return Right(tiposUsuario);
+      } else {
+        final decodedResponse = jsonDecode(response.body);
+        return Left(decodedResponse["detail"]);
+      }
+    } catch (err) {
+      return const Left("Ocurrio un error y no se pudo iniciar sesión");
+    }
+  }
+
+  @override
+  Future<Either<String, String>> registrarUsuarios(
+      String nombre,
+      String apellido,
+      String codigo,
+      String password,
+      String genero,
+      String tiposUsuario) async {
+    try {
+      final url = Uri.parse("$apiUrl/api/auth/registrar");
+      final request = http.MultipartRequest("POST", url);
+
+      request.fields["nombre"] = nombre;
+      request.fields["apellido"] = apellido;
+      request.fields["codigo"] = codigo;
+      request.fields["password"] = password;
+      request.fields["genero"] = genero;
+      request.fields["tipoUsuario"] = tiposUsuario;
+
+      final response = await request.send();
+
+      if (response.statusCode == 200) {
+        return const Right("usuario registrado con exito");
+      } else {
+        return const Left("Ocurrio un error y no se pudo registrar el usuario");
+      }
+    } catch (err) {
+      return const Left("Ocurrio un error y no se pudo registrar el usuario");
     }
   }
 }

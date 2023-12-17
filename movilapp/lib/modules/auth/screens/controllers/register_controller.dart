@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository.dart';
 import 'package:movilapp/modules/auth/screens/states/register_state.dart';
 import 'package:movilapp/modules/global/state_notifier.dart';
@@ -8,12 +9,21 @@ class RegisterController extends StateNotifier<RegisterState> {
   final AuthenticationRepository authenticationRepository;
 
   Future<void> init() async {
-    final result = await authenticationRepository.obtenerGeneros();
+    final resultGeneros = await authenticationRepository.obtenerGeneros();
+    final resultTiposUsuario =
+        await authenticationRepository.obtenerTiposUsuario();
 
-    result.fold(
+    resultGeneros.fold(
       (l) => null,
       (r) {
         updateAndNotify(state.copyWith(generos: r));
+      },
+    );
+
+    resultTiposUsuario.fold(
+      (l) => null,
+      (r) {
+        updateAndNotify(state.copyWith(tiposUsuario: r));
       },
     );
   }
@@ -30,11 +40,28 @@ class RegisterController extends StateNotifier<RegisterState> {
     onlyUpdate(state.copyWith(nombre: nombre));
   }
 
+  void onApellidoChange(String apellido) {
+    onlyUpdate(state.copyWith(apellido: apellido));
+  }
+
   void onGeneroChange(String genero) {
     updateAndNotify(state.copyWith(genero: genero));
   }
 
   void onTipoUsuarioChange(String tipoUsuario) {
-    onlyUpdate(state.copyWith(tipoUsuario: tipoUsuario));
+    updateAndNotify(state.copyWith(tipoUsuario: tipoUsuario));
+  }
+
+  Future<Either<String, String>> registrarUsuario() async {
+    updateAndNotify(state.copyWith(loading: true));
+    final result = await authenticationRepository.registrarUsuarios(
+        state.nombre,
+        state.apellido,
+        state.codigo,
+        state.password,
+        state.genero,
+        state.tipoUsuario);
+    updateAndNotify(state.copyWith(loading: false));
+    return result;
   }
 }

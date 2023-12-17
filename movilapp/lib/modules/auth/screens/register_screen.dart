@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movilapp/modules/auth/screens/controllers/register_controller.dart';
 import 'package:movilapp/modules/auth/screens/states/register_state.dart';
+import 'package:movilapp/routes/routes.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -11,15 +12,15 @@ class RegisterScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => RegisterController(
           const RegisterState(
-            codigo: "",
-            password: "",
-            loading: false,
-            apellido: "",
-            genero: "",
-            nombre: "",
-            tipoUsuario: "",
-            generos: [],
-          ),
+              codigo: "",
+              password: "",
+              loading: false,
+              apellido: "",
+              genero: "",
+              nombre: "",
+              tipoUsuario: "",
+              generos: [],
+              tiposUsuario: []),
           authenticationRepository: context.read())
         ..init(),
       child: Scaffold(
@@ -41,7 +42,11 @@ class RegisterScreen extends StatelessWidget {
                             border: OutlineInputBorder(),
                             hintText: 'nombre',
                           ),
-                          onChanged: (text) {},
+                          onChanged: (text) {
+                            context
+                                .read<RegisterController>()
+                                .onNombreChange(text);
+                          },
                           validator: (text) {
                             text = text?.trim().toLowerCase() ?? '';
                             if (text.isEmpty) {
@@ -56,7 +61,11 @@ class RegisterScreen extends StatelessWidget {
                             border: OutlineInputBorder(),
                             hintText: 'apellido',
                           ),
-                          onChanged: (text) {},
+                          onChanged: (text) {
+                            context
+                                .read<RegisterController>()
+                                .onApellidoChange(text);
+                          },
                           validator: (text) {
                             text = text?.trim().toLowerCase() ?? '';
                             if (text.isEmpty) {
@@ -71,7 +80,11 @@ class RegisterScreen extends StatelessWidget {
                             border: OutlineInputBorder(),
                             hintText: 'codigo',
                           ),
-                          onChanged: (text) {},
+                          onChanged: (text) {
+                            context
+                                .read<RegisterController>()
+                                .onCodigoChange(text);
+                          },
                           validator: (text) {
                             text = text?.trim().toLowerCase() ?? '';
                             if (text.isEmpty) {
@@ -86,7 +99,11 @@ class RegisterScreen extends StatelessWidget {
                             border: OutlineInputBorder(),
                             hintText: 'password',
                           ),
-                          onChanged: (text) {},
+                          onChanged: (text) {
+                            context
+                                .read<RegisterController>()
+                                .onPasswordChange(text);
+                          },
                           validator: (text) {
                             text = text?.trim().toLowerCase() ?? '';
                             if (text.isEmpty) {
@@ -121,7 +138,82 @@ class RegisterScreen extends StatelessWidget {
                               );
                             },
                           ),
-                        )
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          "Seleccione el tipo de usuario:",
+                        ),
+                        SizedBox(
+                          height: 100,
+                          child: Consumer<RegisterController>(
+                            builder: (context, value, child) {
+                              return ListView.builder(
+                                itemBuilder: (context, index) {
+                                  final tipousuario =
+                                      value.state.tiposUsuario[index].tipo;
+
+                                  return RadioListTile<String>(
+                                    title: Text(tipousuario),
+                                    value: tipousuario,
+                                    groupValue: value.state.tipoUsuario,
+                                    onChanged: (_) => context
+                                        .read<RegisterController>()
+                                        .onTipoUsuarioChange(tipousuario),
+                                  );
+                                },
+                                itemCount: value.state.tiposUsuario.length,
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Selector<RegisterController, bool>(
+                          selector: (_, state) => state.state.loading,
+                          builder: (context, value, child) {
+                            if (value) {
+                              return const CircularProgressIndicator();
+                            }
+
+                            return ElevatedButton(
+                              onPressed: () async {
+                                final isValid = Form.of(context).validate();
+                                if (isValid) {
+                                  final registerController =
+                                      context.read<RegisterController>();
+
+                                  if (registerController.state.genero == "" ||
+                                      registerController.state.tipoUsuario ==
+                                          "") {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Seleccione una opcion"),
+                                      ),
+                                    );
+
+                                    return;
+                                  }
+
+                                  final result = await registerController
+                                      .registrarUsuario();
+
+                                  result.fold(
+                                    (l) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(l),
+                                        ),
+                                      );
+                                    },
+                                    (r) => Navigator.pushReplacementNamed(
+                                        context, Routes.login),
+                                  );
+                                }
+                              },
+                              child: const Text("Registrar"),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   );

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:movilapp/modules/auth/model/genero_model.dart';
+import 'package:movilapp/modules/auth/model/tipo_usuario_model.dart';
 
 class RegisterState extends Equatable {
   final String nombre;
@@ -10,6 +11,7 @@ class RegisterState extends Equatable {
   final String tipoUsuario;
   final bool loading;
   final List<GeneroModel> generos;
+  final List<TipoUsuarioModel> tiposUsuario;
 
   const RegisterState({
     required this.codigo,
@@ -20,17 +22,20 @@ class RegisterState extends Equatable {
     required this.nombre,
     required this.tipoUsuario,
     required this.generos,
+    required this.tiposUsuario,
   });
 
-  RegisterState copyWith(
-          {String? codigo,
-          String? password,
-          bool? loading,
-          String? nombre,
-          String? apellido,
-          String? genero,
-          String? tipoUsuario,
-          List<GeneroModel>? generos}) =>
+  RegisterState copyWith({
+    String? codigo,
+    String? password,
+    bool? loading,
+    String? nombre,
+    String? apellido,
+    String? genero,
+    String? tipoUsuario,
+    List<GeneroModel>? generos,
+    List<TipoUsuarioModel>? tiposUsuario,
+  }) =>
       RegisterState(
         codigo: codigo ?? this.codigo,
         password: password ?? this.password,
@@ -40,6 +45,7 @@ class RegisterState extends Equatable {
         genero: genero ?? this.genero,
         tipoUsuario: tipoUsuario ?? this.tipoUsuario,
         generos: generos ?? this.generos,
+        tiposUsuario: tiposUsuario ?? this.tiposUsuario,
       );
 
   @override
@@ -51,6 +57,7 @@ class RegisterState extends Equatable {
         apellido,
         genero,
         tipoUsuario,
-        generos
+        generos,
+        tiposUsuario,
       ];
 }
