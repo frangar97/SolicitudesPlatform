@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:movilapp/modules/auth/model/login_model.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository.dart';
 import 'package:movilapp/modules/auth/screens/states/login_state.dart';
@@ -16,11 +17,16 @@ class LoginController extends StateNotifier<LoginState> {
     onlyUpdate(state.copyWith(password: password));
   }
 
-  Future<void> iniciarSesion() async {
+  Future<Either<String, String>> iniciarSesion() async {
     updateAndNotify(state.copyWith(loading: true));
-    await authenticationRepository.login(LoginModel(
+
+    final result = await authenticationRepository.login(LoginModel(
       codigo: state.codigo,
       password: state.password,
     ));
+
+    updateAndNotify(state.copyWith(loading: false));
+
+    return result;
   }
 }
