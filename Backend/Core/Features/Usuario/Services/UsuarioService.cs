@@ -1,6 +1,7 @@
 ﻿using Core.Exceptions;
 using Core.Features.Base;
 using Core.Features.Genero;
+using Core.Features.Genero.DTO;
 using Core.Features.TipoUsuario;
 using Core.Features.Usuario.DTO;
 using Core.Services;
@@ -82,6 +83,11 @@ namespace Core.Features.Usuario.Services
 
             string token = _jwtService.GenerateJWT(usuarioEntity.Id, usuarioEntity.Codigo);
             return token;
+        }
+
+        public IEnumerable<GeneroDTO> ObtenerGeneros()
+        {
+            return _unitOfWork.GeneroRepository.GetAllSelect(x => new GeneroDTO { Id = x.Id, Tipo = x.Tipo });
         }
 
         public IEnumerable<UsuarioDTO> ObtenerUsuarios()

@@ -1,4 +1,5 @@
-﻿using Core.Features.TipoUsuario.DTO;
+﻿using Core.Features.Genero.DTO;
+using Core.Features.TipoUsuario.DTO;
 using Core.Features.TipoUsuario.Services;
 using Core.Features.Usuario.DTO;
 using Core.Features.Usuario.Services;
@@ -48,6 +49,13 @@ namespace API.Controllers
         {
             IEnumerable<TipoUsuarioDTO> tiposUsuario = _tipoUsuarioService.GetAllTiposUsuario();
             return Ok(tiposUsuario);
+        }
+
+        [HttpGet("generos")]
+        public IActionResult ObtenerGenerosDeUsuario()
+        {
+            IEnumerable<GeneroDTO> generoDTOs = _usuarioService.ObtenerGeneros();
+            return Ok(generoDTOs);
         }
     }
 }
