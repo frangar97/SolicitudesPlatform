@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:movilapp/modules/auth/screens/controllers/register_controller.dart';
 import 'package:movilapp/modules/auth/screens/states/register_state.dart';
 import 'package:movilapp/routes/routes.dart';
@@ -11,7 +14,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => RegisterController(
-          const RegisterState(
+          RegisterState(
               codigo: "",
               password: "",
               loading: false,
@@ -165,6 +168,22 @@ class RegisterScreen extends StatelessWidget {
                               );
                             },
                           ),
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          onPressed: () async {
+                            final imagenSeleccionada = await ImagePicker()
+                                .pickImage(source: ImageSource.gallery);
+                            if (context.mounted) {
+                              if (imagenSeleccionada != null) {
+                                context
+                                    .read<RegisterController>()
+                                    .onChangeImage(
+                                        File(imagenSeleccionada.path));
+                              }
+                            }
+                          },
+                          child: const Text("Seleccionar imagen de galeria"),
                         ),
                         const SizedBox(height: 10),
                         Selector<RegisterController, bool>(

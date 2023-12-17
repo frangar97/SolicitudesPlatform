@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository.dart';
 import 'package:movilapp/modules/auth/screens/states/register_state.dart';
@@ -52,15 +54,21 @@ class RegisterController extends StateNotifier<RegisterState> {
     updateAndNotify(state.copyWith(tipoUsuario: tipoUsuario));
   }
 
+  void onChangeImage(File? imagen) {
+    updateAndNotify(state.copyWith(file: imagen));
+  }
+
   Future<Either<String, String>> registrarUsuario() async {
     updateAndNotify(state.copyWith(loading: true));
     final result = await authenticationRepository.registrarUsuarios(
-        state.nombre,
-        state.apellido,
-        state.codigo,
-        state.password,
-        state.genero,
-        state.tipoUsuario);
+      state.nombre,
+      state.apellido,
+      state.codigo,
+      state.password,
+      state.genero,
+      state.tipoUsuario,
+      state.file,
+    );
     updateAndNotify(state.copyWith(loading: false));
     return result;
   }

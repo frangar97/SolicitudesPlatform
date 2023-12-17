@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:dartz/dartz.dart';
+import 'package:http/http.dart';
 import 'package:movilapp/constants/constants.dart';
 import 'package:movilapp/modules/auth/model/genero_model.dart';
 import 'package:movilapp/modules/auth/model/login_model.dart';
@@ -91,7 +93,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       String codigo,
       String password,
       String genero,
-      String tiposUsuario) async {
+      String tiposUsuario,
+      File? file) async {
     try {
       final url = Uri.parse("$apiUrl/api/auth/registrar");
       final request = http.MultipartRequest("POST", url);
@@ -102,6 +105,11 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       request.fields["password"] = password;
       request.fields["genero"] = genero;
       request.fields["tipoUsuario"] = tiposUsuario;
+
+      if (file != null) {
+        final httpImage = await MultipartFile.fromPath("imagen", file.path);
+        request.files.add(httpImage);
+      }
 
       final response = await request.send();
 

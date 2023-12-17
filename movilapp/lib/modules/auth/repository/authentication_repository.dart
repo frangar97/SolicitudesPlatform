@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:movilapp/modules/auth/model/genero_model.dart';
 import 'package:movilapp/modules/auth/model/login_model.dart';
@@ -11,7 +13,8 @@ abstract class AuthenticationRepository {
       String codigo,
       String password,
       String genero,
-      String tiposUsuario);
+      String tiposUsuario,
+      File? imagen);
   Future<Either<String, List<GeneroModel>>> obtenerGeneros();
   Future<Either<String, List<TipoUsuarioModel>>> obtenerTiposUsuario();
 }
