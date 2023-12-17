@@ -6,5 +6,7 @@ namespace Core.Features.TipoSolicitud.Services
     {
         IEnumerable<TipoSolicitudDTO> GetAllTiposSolicitud();
         Task<TipoSolicitudDTO> CreateTipoSolicitud(CreateTipoSolicitudDTO createTipoSolicitudDTO);
+        IEnumerable<TipoSolicitudDTO> TipoSolicitudAsociadoUsuario(int usuarioId);
+        IEnumerable<TipoSolicitudDTO> TipoSolicitudNoAsociadoUsuario(int usuarioId);
     }
 }
