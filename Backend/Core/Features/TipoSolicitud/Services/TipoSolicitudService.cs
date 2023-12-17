@@ -36,14 +36,14 @@ namespace Core.Features.TipoSolicitud.Services
 
         public IEnumerable<TipoSolicitudDTO> TipoSolicitudAsociadoUsuario(int usuarioId)
         {
-            IEnumerable<int> usuarioTipoSolicitudEntities = _unitOfWork.UsuarioTipoSolicitudRepository.Where(x => x.Id == usuarioId && x.Activo == true).Select(x => x.TipoSolicitudId);
+            IEnumerable<int> usuarioTipoSolicitudEntities = _unitOfWork.UsuarioTipoSolicitudRepository.Where(x => x.UsuarioId == usuarioId && x.Activo == true).Select(x => x.TipoSolicitudId);
             IEnumerable<TipoSolicitudDTO> tipoSolicitudDTOs = _unitOfWork.TipoSolicitudRepository.Where(x => usuarioTipoSolicitudEntities.Contains(x.Id)).Select(x => new TipoSolicitudDTO { Id = x.Id, Tipo = x.Tipo });
             return tipoSolicitudDTOs;
         }
 
         public IEnumerable<TipoSolicitudDTO> TipoSolicitudNoAsociadoUsuario(int usuarioId)
         {
-            IEnumerable<int> usuarioTipoSolicitudEntities = _unitOfWork.UsuarioTipoSolicitudRepository.Where(x => x.Id == usuarioId && x.Activo == true).Select(x => x.TipoSolicitudId);
+            IEnumerable<int> usuarioTipoSolicitudEntities = _unitOfWork.UsuarioTipoSolicitudRepository.Where(x => x.UsuarioId == usuarioId && x.Activo == true).Select(x => x.TipoSolicitudId);
             IEnumerable<TipoSolicitudDTO> tipoSolicitudDTOs = _unitOfWork.TipoSolicitudRepository.Where(x => !usuarioTipoSolicitudEntities.Contains(x.Id)).Select(x => new TipoSolicitudDTO { Id = x.Id, Tipo = x.Tipo });
             return tipoSolicitudDTOs;
         }

@@ -5,10 +5,9 @@ import { UsuarioPage } from './features/usuario/pages/UsuarioPage'
 import { SolicitudPage } from './features/solicitud/pages/SolicitudPage'
 import { TipoSolicitudPage } from './features/solicitud/pages/TipoSolicitud'
 import { UsuarioZonaPage } from './features/usuario/pages/UsuarioZonaPage'
+import { UsuarioTipoSolicitudPage } from './features/usuario/pages/UsuarioTipoSolicitudPage'
 
 function App() {
-
-
   return (
     <BrowserRouter>
       <Routes>
@@ -18,6 +17,7 @@ function App() {
           <Route path="solicitudes" element={<SolicitudPage />} />
           <Route path="tipos-solicitudes" element={<TipoSolicitudPage />} />
           <Route path="usuario-zona" element={<UsuarioZonaPage />} />
+          <Route path="usuario-tiposolicitud" element={<UsuarioTipoSolicitudPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -18,14 +18,14 @@ namespace Core.Features.Zona.Service
 
         public IEnumerable<ZonaDTO> ZonaAsociadoUsuario(int usuarioId)
         {
-            IEnumerable<int> usuarioZonaId = _unitOfWork.UsuarioZonaRepository.Where(x => x.Id == usuarioId && x.Activo == true).Select(x => x.ZonaId);
+            IEnumerable<int> usuarioZonaId = _unitOfWork.UsuarioZonaRepository.Where(x => x.UsuarioId == usuarioId && x.Activo == true).Select(x => x.ZonaId);
             IEnumerable<ZonaDTO> zonaDTOs = _unitOfWork.ZonaRepository.Where(x => usuarioZonaId.Contains(x.Id)).Select(x => new ZonaDTO { Id = x.Id, Nombre = x.Nombre });
             return zonaDTOs;
         }
 
         public IEnumerable<ZonaDTO> ZonaNoAsociadoUsuario(int usuarioId)
         {
-            IEnumerable<int> usuarioZonaId = _unitOfWork.UsuarioZonaRepository.Where(x => x.Id == usuarioId && x.Activo == true).Select(x => x.ZonaId);
+            IEnumerable<int> usuarioZonaId = _unitOfWork.UsuarioZonaRepository.Where(x => x.UsuarioId == usuarioId && x.Activo == true).Select(x => x.ZonaId);
             IEnumerable<ZonaDTO> zonaDTOs = _unitOfWork.ZonaRepository.Where(x => !usuarioZonaId.Contains(x.Id)).Select(x => new ZonaDTO { Id = x.Id, Nombre = x.Nombre });
             return zonaDTOs;
         }
