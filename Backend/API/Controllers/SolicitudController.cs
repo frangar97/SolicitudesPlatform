@@ -42,6 +42,14 @@ namespace API.Controllers
             return Ok(solicitudesDTO);
         }
 
+        [HttpGet("usuario")]
+        public IActionResult ObtenerSolicitudesUsuario()
+        {
+            int usuarioId = Convert.ToInt32(HttpContext.User.FindFirstValue("UserID"));
+            IEnumerable<SolicitudDTO> solicitudesDTO = _solicitudService.ObtnerSolicitudesUsuario(usuarioId);
+            return Ok(solicitudesDTO);
+        }
+
         [HttpPatch("aprobar/{id}")]
         public async Task<IActionResult> AprobarSolicitud(int id)
         {

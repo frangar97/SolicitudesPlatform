@@ -107,5 +107,18 @@ namespace Core.Features.Solicitud.Services
                 EstadoSolicitud = x.EstadoSolicitud.Estado,
             });
         }
+
+        public IEnumerable<SolicitudDTO> ObtnerSolicitudesUsuario(int usuarioId)
+        {
+            return _unitOfWork.SolicitudRepository.ObtenerSolicitudesUsuario(usuarioId).Select(x => new SolicitudDTO
+            {
+                Id = x.Id,
+                Descripcion = x.Descripcion,
+                Zona = x.Zona.Nombre,
+                TipoSolicitud = x.TipoSolicitud.Tipo,
+                Usuario = $"{x.Usuario.Nombre} {x.Usuario.Apellido}",
+                EstadoSolicitud = x.EstadoSolicitud.Estado,
+            });
+        }
     }
 }
