@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository_impl.dart';
+import 'package:movilapp/modules/usuario/controller/usuario_controller.dart';
+import 'package:movilapp/modules/usuario/model/usuario_model.dart';
+import 'package:movilapp/modules/usuario/state/usuario_state.dart';
 
 import 'package:movilapp/routes/app_routes.dart';
 import 'package:movilapp/routes/routes.dart';
@@ -15,6 +19,22 @@ void main() async {
       Provider<AuthenticationRepository>(
         create: (_) => AuthenticationRepositoryImpl(
           client: http.Client(),
+        ),
+      ),
+      ChangeNotifierProvider<UsuarioController>(
+        create: (context) => UsuarioController(
+          const UsuarioState(
+            usuario: UsuarioModel(
+              apellido: "",
+              codigo: "",
+              genero: "",
+              nombre: "",
+              tipoUsuario: "",
+              id: 0,
+            ),
+          ),
+          flutterSecureStorage: const FlutterSecureStorage(),
+          authenticationRepository: context.read(),
         ),
       ),
     ],
