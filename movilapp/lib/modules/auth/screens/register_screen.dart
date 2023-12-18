@@ -14,7 +14,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => RegisterController(
-          RegisterState(
+          const RegisterState(
               codigo: "",
               password: "",
               loading: false,
