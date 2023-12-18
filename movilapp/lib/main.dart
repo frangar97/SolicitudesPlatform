@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository_impl.dart';
+import 'package:movilapp/modules/solicitud/repository/solicitud_repository.dart';
+import 'package:movilapp/modules/solicitud/repository/solicitud_repository_impl.dart';
 import 'package:movilapp/modules/usuario/controller/usuario_controller.dart';
 import 'package:movilapp/modules/usuario/model/usuario_model.dart';
 import 'package:movilapp/modules/usuario/state/usuario_state.dart';
@@ -18,6 +20,11 @@ void main() async {
     providers: [
       Provider<AuthenticationRepository>(
         create: (_) => AuthenticationRepositoryImpl(
+          client: http.Client(),
+        ),
+      ),
+      Provider<SolicitudRepository>(
+        create: (_) => SolicitudRepositoryImpl(
           client: http.Client(),
         ),
       ),
