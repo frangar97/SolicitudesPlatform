@@ -29,12 +29,12 @@ class LoginController extends StateNotifier<LoginState> {
       password: state.password,
     ));
 
-    result.fold((l) => null, (r) async {
-      await flutterSecureStorage.write(key: "token", value: r);
-    });
-
     updateAndNotify(state.copyWith(loading: false));
 
     return result;
+  }
+
+  Future<void> guardarTokenUsuario(String token) async {
+    await flutterSecureStorage.write(key: "token", value: token);
   }
 }

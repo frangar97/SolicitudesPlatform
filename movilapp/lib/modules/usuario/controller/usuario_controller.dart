@@ -19,4 +19,8 @@ class UsuarioController extends StateNotifier<UsuarioState> {
       updateAndNotify(state.copyWith(usuario: r));
     });
   }
+
+  Future<void> cerrarSesion() async {
+    flutterSecureStorage.delete(key: "token");
+  }
 }

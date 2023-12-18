@@ -85,18 +85,20 @@ class LoginScreen extends StatelessWidget {
                                   final result =
                                       await loginController.iniciarSesion();
 
-                                  result.fold(
-                                    (l) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(l),
-                                        ),
-                                      );
-                                    },
-                                    (r) => Navigator.pushReplacementNamed(
-                                        context, Routes.home),
-                                  );
+                                  result.fold((l) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(l),
+                                      ),
+                                    );
+                                  }, (r) async {
+                                    await loginController
+                                        .guardarTokenUsuario(r);
+                                    if (context.mounted) {
+                                      Navigator.pushReplacementNamed(
+                                          context, Routes.home);
+                                    }
+                                  });
                                 }
                               },
                               child: const Text("Iniciar sesión"),

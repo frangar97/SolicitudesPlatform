@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movilapp/modules/usuario/controller/usuario_controller.dart';
+import 'package:movilapp/routes/routes.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -53,9 +54,16 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.add),
               title: Text("Crear solicitud"),
             ),
-            const ListTile(
-              leading: Icon(Icons.arrow_back),
-              title: Text("Cerrar sesión"),
+            ListTile(
+              leading: const Icon(Icons.arrow_back),
+              title: const Text("Cerrar sesión"),
+              onTap: () async {
+                await context.read<UsuarioController>().cerrarSesion();
+                if (context.mounted) {
+                  Navigator.popUntil(
+                      context, ModalRoute.withName(Routes.login));
+                }
+              },
             ),
           ],
         ),
