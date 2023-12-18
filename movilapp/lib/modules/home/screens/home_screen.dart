@@ -86,13 +86,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
             return Padding(
               padding: const EdgeInsets.all(15),
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return SolicitudCard(
-                    solicitud: solicitudes[index],
-                  );
-                },
-                itemCount: solicitudes.length,
+              child: RefreshIndicator(
+                onRefresh: context.read<HomeController>().obtenerSolicitudes,
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return SolicitudCard(
+                      solicitud: solicitudes[index],
+                    );
+                  },
+                  itemCount: solicitudes.length,
+                ),
               ),
             );
           },
