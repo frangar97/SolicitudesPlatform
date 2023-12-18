@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository_impl.dart';
+import 'package:movilapp/modules/home/screens/controller/home_controller.dart';
+import 'package:movilapp/modules/home/screens/state/home_state.dart';
 import 'package:movilapp/modules/solicitud/repository/solicitud_repository.dart';
 import 'package:movilapp/modules/solicitud/repository/solicitud_repository_impl.dart';
 import 'package:movilapp/modules/usuario/controller/usuario_controller.dart';
@@ -42,6 +44,13 @@ void main() async {
           ),
           flutterSecureStorage: const FlutterSecureStorage(),
           authenticationRepository: context.read(),
+        ),
+      ),
+      ChangeNotifierProvider<HomeController>(
+        create: (context) => HomeController(
+          const HomeState(solicitudes: []),
+          solicitudRepository: context.read(),
+          flutterSecureStorage: const FlutterSecureStorage(),
         ),
       ),
     ],

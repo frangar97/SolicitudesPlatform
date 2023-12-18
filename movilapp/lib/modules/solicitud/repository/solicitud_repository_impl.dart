@@ -18,7 +18,7 @@ class SolicitudRepositoryImpl implements SolicitudRepository {
 
       final response = await client.get(url, headers: {
         "Content-Type": "application/json",
-        "Authentication": "Bearer $token"
+        "Authorization": "Bearer $token"
       });
 
       if (response.statusCode == 200) {
