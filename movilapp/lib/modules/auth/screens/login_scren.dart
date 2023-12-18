@@ -13,6 +13,7 @@ class LoginScreen extends StatelessWidget {
       create: (_) => LoginController(
         const LoginState(codigo: "", password: "", loading: false),
         authenticationRepository: context.read(),
+        database: context.read(),
       ),
       child: Scaffold(
         appBar: AppBar(

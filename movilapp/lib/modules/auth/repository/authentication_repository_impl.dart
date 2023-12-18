@@ -9,6 +9,7 @@ import 'package:movilapp/modules/auth/model/genero_model.dart';
 import 'package:movilapp/modules/auth/model/login_model.dart';
 import 'package:movilapp/modules/auth/model/tipo_usuario_model.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository.dart';
+import 'package:movilapp/modules/usuario/model/usuario_model.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
   final http.Client client;
@@ -120,6 +121,29 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       }
     } catch (err) {
       return const Left("Ocurrio un error y no se pudo registrar el usuario");
+    }
+  }
+
+  @override
+  Future<Either<String, UsuarioModel>> obtenerUsuario(String token) async {
+    try {
+      final url = Uri.parse("$apiUrl/api/usuario/datos");
+
+      final response = await client.get(url, headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      });
+
+      if (response.statusCode == 200) {
+        final decodedResp = jsonDecode(response.body);
+        final usuario = UsuarioModel.fromJson(decodedResp);
+        return Right(usuario);
+      } else {
+        final decodedResponse = jsonDecode(response.body);
+        return Left(decodedResponse["detail"]);
+      }
+    } catch (err) {
+      return const Left("Ocurrio un error y no se pudo iniciar sesión");
     }
   }
 }
