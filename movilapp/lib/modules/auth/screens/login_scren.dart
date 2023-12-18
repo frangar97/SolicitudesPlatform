@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:movilapp/modules/auth/screens/controllers/login_controller.dart';
 import 'package:movilapp/modules/auth/screens/states/login_state.dart';
 import 'package:movilapp/routes/routes.dart';
@@ -13,7 +14,7 @@ class LoginScreen extends StatelessWidget {
       create: (_) => LoginController(
         const LoginState(codigo: "", password: "", loading: false),
         authenticationRepository: context.read(),
-        database: context.read(),
+        flutterSecureStorage: const FlutterSecureStorage(),
       ),
       child: Scaffold(
         appBar: AppBar(

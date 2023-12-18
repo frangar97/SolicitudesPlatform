@@ -1,17 +1,17 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:movilapp/modules/auth/model/login_model.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository.dart';
 import 'package:movilapp/modules/auth/screens/states/login_state.dart';
-import 'package:movilapp/modules/database/app_database.dart';
 import 'package:movilapp/modules/global/state_notifier.dart';
-import 'package:movilapp/modules/usuario/database/usuario_entity.dart';
 
 class LoginController extends StateNotifier<LoginState> {
   LoginController(super.state,
-      {required this.authenticationRepository, required this.database});
+      {required this.authenticationRepository,
+      required this.flutterSecureStorage});
 
   final AuthenticationRepository authenticationRepository;
-  final AppDatabase database;
+  FlutterSecureStorage flutterSecureStorage;
 
   void onCodigoChange(String codigo) {
     onlyUpdate(state.copyWith(codigo: codigo));
@@ -30,26 +30,7 @@ class LoginController extends StateNotifier<LoginState> {
     ));
 
     result.fold((l) => null, (r) async {
-      final resultUsuario = await authenticationRepository.obtenerUsuario(r);
-
-      resultUsuario.fold(
-        (fail) => null,
-        (success) async {
-          final usuarioEntityBd =
-              await database.usuarioDao.findByCodigo(success.codigo);
-
-          if (usuarioEntityBd == null) {
-            UsuarioEntity entity = UsuarioEntity(
-                apellido: success.apellido,
-                codigo: success.codigo,
-                genero: success.genero,
-                nombre: success.nombre,
-                tipoUsuario: success.tipoUsuario,
-                urlImagen: success.urlImagen);
-            await database.usuarioDao.insertUsuario(entity);
-          }
-        },
-      );
+      await flutterSecureStorage.write(key: "token", value: r);
     });
 
     updateAndNotify(state.copyWith(loading: false));
