@@ -1,13 +1,15 @@
-class UsuarioModel {
+import 'package:equatable/equatable.dart';
+
+class UsuarioModel extends Equatable {
   final int id;
   final String nombre;
   final String apellido;
   final String codigo;
   final String genero;
   final String tipoUsuario;
-  String? urlImagen;
+  final String? urlImagen;
 
-  UsuarioModel({
+  const UsuarioModel({
     required this.apellido,
     required this.codigo,
     required this.genero,
@@ -43,4 +45,15 @@ class UsuarioModel {
         tipoUsuario: tipoUsuario ?? this.tipoUsuario,
         urlImagen: urlImagen ?? this.urlImagen,
       );
+
+  @override
+  List<Object?> get props => [
+        id,
+        urlImagen,
+        tipoUsuario,
+        nombre,
+        genero,
+        apellido,
+        codigo,
+      ];
 }

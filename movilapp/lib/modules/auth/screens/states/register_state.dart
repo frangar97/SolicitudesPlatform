@@ -14,9 +14,9 @@ class RegisterState extends Equatable {
   final bool loading;
   final List<GeneroModel> generos;
   final List<TipoUsuarioModel> tiposUsuario;
-  File? file;
+  final File? file;
 
-  RegisterState({
+  const RegisterState({
     required this.codigo,
     required this.password,
     required this.loading,
