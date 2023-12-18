@@ -62,7 +62,7 @@ void main() async {
         useMaterial3: true,
       ),
       routes: appRoutes,
-      initialRoute: Routes.login,
+      initialRoute: Routes.splash,
     ),
   ));
 }

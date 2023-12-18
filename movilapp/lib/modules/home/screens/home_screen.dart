@@ -63,8 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () async {
                   await context.read<UsuarioController>().cerrarSesion();
                   if (context.mounted) {
-                    Navigator.popUntil(
-                        context, ModalRoute.withName(Routes.login));
+                    Navigator.pushReplacementNamed(context, Routes.login);
                   }
                 },
               ),

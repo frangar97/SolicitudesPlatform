@@ -1,6 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:movilapp/modules/auth/repository/authentication_repository.dart';
 import 'package:movilapp/modules/global/state_notifier.dart';
+import 'package:movilapp/modules/usuario/model/usuario_model.dart';
 import 'package:movilapp/modules/usuario/state/usuario_state.dart';
 
 class UsuarioController extends StateNotifier<UsuarioState> {
@@ -21,6 +22,25 @@ class UsuarioController extends StateNotifier<UsuarioState> {
   }
 
   Future<void> cerrarSesion() async {
-    flutterSecureStorage.delete(key: "token");
+    updateAndNotify(state.copyWith(
+      usuario: const UsuarioModel(
+        apellido: "",
+        codigo: "",
+        genero: "",
+        nombre: "",
+        tipoUsuario: "",
+        id: 0,
+      ),
+    ));
+    await flutterSecureStorage.delete(key: "token");
+  }
+
+  Future<bool> existeSesion() async {
+    final token = await flutterSecureStorage.read(key: "token");
+    if (token == null) {
+      return false;
+    }
+
+    return true;
   }
 }
