@@ -98,6 +98,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
+                          obscureText: true,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'password',

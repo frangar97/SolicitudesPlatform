@@ -1,4 +1,4 @@
-const APIURL = "https://localhost:44352";
+const APIURL = "http://localhost:5206";
 
 export {
     APIURL

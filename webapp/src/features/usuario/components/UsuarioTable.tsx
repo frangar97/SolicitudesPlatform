@@ -21,7 +21,7 @@ export const UsuarioTable: FC<{ usuarios: IUsuario[] }> = ({ usuarios }) => {
                         <td>{u.apellido}</td>
                         <td>{u.genero}</td>
                         <td>{u.tipoUsuario}</td>
-                        <td>{(u.urlImagen === null) ? "No disponible" : <img src={u.urlImagen} className="img-thumbnail" />}</td>
+                        <td>{(u.urlImagen === null) ? "No disponible" : <img style={{ width: 125, height: 125 }} src={u.urlImagen} className="img-thumbnail" />}</td>
                     </tr>
                 ))}
             </tbody>
