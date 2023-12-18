@@ -10,6 +10,14 @@ namespace Infrastructure.Repositories
         {
         }
 
+        public UsuarioEntity? ObtenerUsuario(int usuarioId)
+        {
+            return _entities
+                .Include(x => x.Genero)
+                .Include(x => x.TipoUsuario)
+                .FirstOrDefault(x => x.Id == usuarioId);
+        }
+
         public IEnumerable<UsuarioEntity> ObtenerUsuarios()
         {
             return _entities

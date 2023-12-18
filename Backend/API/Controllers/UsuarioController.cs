@@ -10,6 +10,7 @@ using Core.Features.Zona.DTO;
 using Core.Features.Zona.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -37,6 +38,14 @@ namespace API.Controllers
             _usuarioTipoSolicitudService = usuarioTipoSolicitudService;
             _tipoSolicitudService = tipoSolicitudService;
             _zonaService = zonaService;
+        }
+
+        [HttpGet("datos")]
+        public IActionResult ObtenerUsuario()
+        {
+            int usuarioId = Convert.ToInt32(HttpContext.User.FindFirstValue("UserID"));
+            UsuarioDTO usuarios = _usuarioService.ObtenerUsuario(usuarioId);
+            return Ok(usuarios);
         }
 
         [HttpGet]

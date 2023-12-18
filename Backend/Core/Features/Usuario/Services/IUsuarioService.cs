@@ -9,7 +9,7 @@ namespace Core.Features.Usuario.Services
         Task UpdateUsuarioImage(int usuarioId,string imagenUrl);
         Task<string> LoginUsuarioAsync(LoginUsuarioDTO loginUsuarioDTO);
         IEnumerable<UsuarioDTO> ObtenerUsuarios();
-
         IEnumerable<GeneroDTO> ObtenerGeneros();
+        UsuarioDTO ObtenerUsuario(int usuarioId);
     }
 }

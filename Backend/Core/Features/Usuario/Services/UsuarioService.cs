@@ -90,6 +90,26 @@ namespace Core.Features.Usuario.Services
             return _unitOfWork.GeneroRepository.GetAllSelect(x => new GeneroDTO { Id = x.Id, Tipo = x.Tipo });
         }
 
+        public UsuarioDTO ObtenerUsuario(int usuarioId)
+        {
+            UsuarioEntity? usuarioEntity =  _unitOfWork.UsuarioRepository.ObtenerUsuario(usuarioId);
+            if (usuarioEntity == null)
+            {
+                throw new BusinessException("Usuario no existe.");
+            }
+
+            return new UsuarioDTO
+            {
+                Id = usuarioEntity.Id,
+                Nombre = usuarioEntity.Nombre,
+                Apellido = usuarioEntity.Apellido,
+                Codigo = usuarioEntity.Codigo,
+                Genero = usuarioEntity.Genero.Tipo,
+                TipoUsuario = usuarioEntity.TipoUsuario.Tipo,
+                UrlImagen = usuarioEntity.ImagenUrl
+            };
+        }
+
         public IEnumerable<UsuarioDTO> ObtenerUsuarios()
         {
             return _unitOfWork.UsuarioRepository.ObtenerUsuarios().Select(x => new UsuarioDTO
