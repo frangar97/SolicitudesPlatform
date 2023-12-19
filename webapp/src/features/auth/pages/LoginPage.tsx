@@ -19,7 +19,7 @@ export const LoginPage = () => {
 
             const request = await axios.post<{ token: string }>(`${APIURL}/api/auth/login`, { codigo, password });
             localStorage.setItem("token", request.data.token);
-            navigation("/app", { replace: true });
+            navigation("/", { replace: true });
         } catch (err) {
 
         }
