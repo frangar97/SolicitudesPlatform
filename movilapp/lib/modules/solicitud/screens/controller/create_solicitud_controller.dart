@@ -1,5 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:movilapp/modules/global/state_notifier.dart';
+import 'package:movilapp/modules/solicitud/model/create_solicitud_model.dart';
 import 'package:movilapp/modules/solicitud/repository/solicitud_repository.dart';
 import 'package:movilapp/modules/solicitud/screens/state/create_solicitud_state.dart';
 
@@ -34,5 +36,18 @@ class CreateSolicitudController extends StateNotifier<CreateSolicitudState> {
 
   void onChangeTipoSolicitud(String tipoSolicitud) {
     onlyUpdate(state.copyWith(tipoSolicitud: tipoSolicitud));
+  }
+
+  Future<Either<String, String>> crearSolicitud() async {
+    updateAndNotify(state.copyWith(loading: true));
+    final token = await flutterSecureStorage.read(key: "token");
+    final solicitud = CreateSolicitudModel(
+        descripcion: state.descripcion,
+        tipoSolicitud: state.tipoSolicitud,
+        zona: state.zona);
+    final result = await solicitudRepository.crearSolicitud(solicitud, token!);
+    updateAndNotify(state.copyWith(loading: false));
+
+    return result;
   }
 }

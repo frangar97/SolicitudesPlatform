@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:movilapp/constants/constants.dart';
+import 'package:movilapp/modules/solicitud/model/create_solicitud_model.dart';
 import 'package:movilapp/modules/solicitud/model/solicitud_model.dart';
 import 'package:movilapp/modules/solicitud/model/tipo_solicitud_model.dart';
 import 'package:movilapp/modules/solicitud/model/zona_model.dart';
@@ -93,8 +94,31 @@ class SolicitudRepositoryImpl implements SolicitudRepository {
         return Left(decodedResponse["detail"]);
       }
     } catch (err) {
-      return const Left(
-          "Ocurrio un error y no se pudo obtener las zonas");
+      return const Left("Ocurrio un error y no se pudo obtener las zonas");
+    }
+  }
+
+  @override
+  Future<Either<String, String>> crearSolicitud(
+      CreateSolicitudModel solicitudModel, String token) async {
+    try {
+      final url = Uri.parse("$apiUrl/api/solicitud");
+
+      final response = await client.post(url,
+          body: jsonEncode(solicitudModel.toJson()),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token"
+          });
+
+      if (response.statusCode == 200) {
+        return const Right("Solicitud creada con exito");
+      } else {
+        final decodedResponse = jsonDecode(response.body);
+        return Left(decodedResponse["detail"]);
+      }
+    } catch (err) {
+      return const Left("Ocurrio un error y no se pudo crear la solicitud");
     }
   }
 }

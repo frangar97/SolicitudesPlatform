@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:movilapp/modules/home/screens/controller/home_controller.dart';
 import 'package:movilapp/modules/solicitud/screens/controller/create_solicitud_controller.dart';
 import 'package:movilapp/modules/solicitud/screens/state/create_solicitud_state.dart';
+import 'package:movilapp/routes/routes.dart';
 import 'package:provider/provider.dart';
 
 class CreateSolicitudScreen extends StatelessWidget {
@@ -140,7 +142,28 @@ class CreateSolicitudScreen extends StatelessWidget {
                             return ElevatedButton(
                               onPressed: () async {
                                 final isValid = Form.of(context).validate();
-                                if (isValid) {}
+                                if (isValid) {
+                                  final controller =
+                                      context.read<CreateSolicitudController>();
+                                  final result =
+                                      await controller.crearSolicitud();
+
+                                  result.fold((l) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(l),
+                                      ),
+                                    );
+                                  }, (r) async {
+                                    await context
+                                        .read<HomeController>()
+                                        .obtenerSolicitudes();
+                                    if (context.mounted) {
+                                      Navigator.popUntil(context,
+                                          ModalRoute.withName(Routes.home));
+                                    }
+                                  });
+                                }
                               },
                               child: const Text("Registrar"),
                             );

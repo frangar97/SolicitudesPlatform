@@ -41,6 +41,7 @@ class AccountDrawer extends StatelessWidget {
             leading: const Icon(Icons.add),
             title: const Text("Crear solicitud"),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushNamed(context, Routes.createSolicitud);
             },
           ),
