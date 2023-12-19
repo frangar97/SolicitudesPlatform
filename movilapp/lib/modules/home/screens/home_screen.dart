@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movilapp/modules/home/screens/controller/home_controller.dart';
+import 'package:movilapp/modules/home/widgets/account_drawer.dart';
 import 'package:movilapp/modules/solicitud/widgets/solicitud_card.dart';
 import 'package:movilapp/modules/usuario/controller/usuario_controller.dart';
-import 'package:movilapp/routes/routes.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,50 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-          child: ListView(
-            children: [
-              Consumer<UsuarioController>(
-                builder: (context, value, child) {
-                  final nombreUsuario = value.state.usuario.nombre;
-                  final apellidoUsuario = value.state.usuario.apellido;
-                  final codigoUsuario = value.state.usuario.codigo;
-                  final imagenUsuario = value.state.usuario.urlImagen;
-                  Widget usuarioImagen = Text(nombreUsuario.substring(0, 1) +
-                      apellidoUsuario.substring(0, 1));
-
-                  if (imagenUsuario != null) {
-                    usuarioImagen = ClipOval(
-                      child: Image.network(imagenUsuario),
-                    );
-                  }
-
-                  return UserAccountsDrawerHeader(
-                    accountName: Text("$nombreUsuario $apellidoUsuario"),
-                    accountEmail: Text(codigoUsuario),
-                    currentAccountPicture: CircleAvatar(
-                      child: usuarioImagen,
-                    ),
-                  );
-                },
-              ),
-              const ListTile(
-                leading: Icon(Icons.add),
-                title: Text("Crear solicitud"),
-              ),
-              ListTile(
-                leading: const Icon(Icons.arrow_back),
-                title: const Text("Cerrar sesión"),
-                onTap: () async {
-                  await context.read<UsuarioController>().cerrarSesion();
-                  if (context.mounted) {
-                    Navigator.pushReplacementNamed(context, Routes.login);
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: const AccountDrawer(),
         appBar: AppBar(
           title: const Text("Home"),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
