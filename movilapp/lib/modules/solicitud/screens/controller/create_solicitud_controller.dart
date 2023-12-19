@@ -23,4 +23,16 @@ class CreateSolicitudController extends StateNotifier<CreateSolicitudState> {
       updateAndNotify(state.copyWith(zonas: r));
     });
   }
+
+  void onChangeDescripcion(String descripcion) {
+    onlyUpdate(state.copyWith(descripcion: descripcion));
+  }
+
+  void onChangeZona(String zona) {
+    onlyUpdate(state.copyWith(zona: zona));
+  }
+
+  void onChangeTipoSolicitud(String tipoSolicitud) {
+    onlyUpdate(state.copyWith(tipoSolicitud: tipoSolicitud));
+  }
 }

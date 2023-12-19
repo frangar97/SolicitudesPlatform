@@ -37,9 +37,12 @@ class AccountDrawer extends StatelessWidget {
               );
             },
           ),
-          const ListTile(
-            leading: Icon(Icons.add),
-            title: Text("Crear solicitud"),
+          ListTile(
+            leading: const Icon(Icons.add),
+            title: const Text("Crear solicitud"),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, Routes.createSolicitud);
+            },
           ),
           ListTile(
             leading: const Icon(Icons.arrow_back),
