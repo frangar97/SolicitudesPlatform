@@ -111,7 +111,7 @@ class RegisterScreen extends StatelessWidget {
                           validator: (text) {
                             text = text?.trim().toLowerCase() ?? '';
                             if (text.isEmpty) {
-                              return "El password es necesario";
+                              return "La password es necesario";
                             }
                             return null;
                           },
@@ -120,55 +120,77 @@ class RegisterScreen extends StatelessWidget {
                         const Text(
                           "Seleccione el genero:",
                         ),
-                        SizedBox(
-                          height: 100,
-                          child: Consumer<RegisterController>(
-                            builder: (context, value, child) {
-                              return ListView.builder(
-                                itemBuilder: (context, index) {
-                                  final genero =
-                                      value.state.generos[index].tipo;
-
-                                  return RadioListTile<String>(
-                                    title: Text(genero),
-                                    value: genero,
-                                    groupValue: value.state.genero,
-                                    onChanged: (_) => context
-                                        .read<RegisterController>()
-                                        .onGeneroChange(genero),
+                        Consumer<RegisterController>(
+                          builder: (context, value, child) {
+                            final generos = value.state.generos;
+                            return DropdownButtonFormField<String>(
+                                value: value.state.genero,
+                                items:
+                                    List.generate(generos.length + 1, (index) {
+                                  if (index == 0) {
+                                    return const DropdownMenuItem(
+                                      value: "",
+                                      child: Text(""),
+                                    );
+                                  }
+                                  return DropdownMenuItem(
+                                    value: generos[index - 1].tipo,
+                                    child: Text(generos[index - 1].tipo),
                                   );
+                                }),
+                                onChanged: (opcion) {
+                                  if (opcion != null) {
+                                    context
+                                        .read<RegisterController>()
+                                        .onGeneroChange(opcion);
+                                  }
                                 },
-                                itemCount: value.state.generos.length,
-                              );
-                            },
-                          ),
+                                validator: (text) {
+                                  text = text?.trim().toLowerCase() ?? '';
+                                  if (text.isEmpty) {
+                                    return "El genero es necesario";
+                                  }
+                                  return null;
+                                });
+                          },
                         ),
                         const SizedBox(height: 10),
                         const Text(
                           "Seleccione el tipo de usuario:",
                         ),
-                        SizedBox(
-                          height: 100,
-                          child: Consumer<RegisterController>(
-                            builder: (context, value, child) {
-                              return ListView.builder(
-                                itemBuilder: (context, index) {
-                                  final tipousuario =
-                                      value.state.tiposUsuario[index].tipo;
-
-                                  return RadioListTile<String>(
-                                    title: Text(tipousuario),
-                                    value: tipousuario,
-                                    groupValue: value.state.tipoUsuario,
-                                    onChanged: (_) => context
-                                        .read<RegisterController>()
-                                        .onTipoUsuarioChange(tipousuario),
+                        Consumer<RegisterController>(
+                          builder: (context, value, child) {
+                            final tiposUsuario = value.state.tiposUsuario;
+                            return DropdownButtonFormField<String>(
+                                value: value.state.tipoUsuario,
+                                items: List.generate(tiposUsuario.length + 1,
+                                    (index) {
+                                  if (index == 0) {
+                                    return const DropdownMenuItem(
+                                      value: "",
+                                      child: Text(""),
+                                    );
+                                  }
+                                  return DropdownMenuItem(
+                                    value: tiposUsuario[index - 1].tipo,
+                                    child: Text(tiposUsuario[index - 1].tipo),
                                   );
+                                }),
+                                onChanged: (opcion) {
+                                  if (opcion != null) {
+                                    context
+                                        .read<RegisterController>()
+                                        .onTipoUsuarioChange(opcion);
+                                  }
                                 },
-                                itemCount: value.state.tiposUsuario.length,
-                              );
-                            },
-                          ),
+                                validator: (text) {
+                                  text = text?.trim().toLowerCase() ?? '';
+                                  if (text.isEmpty) {
+                                    return "El tipo de usuario es necesario";
+                                  }
+                                  return null;
+                                });
+                          },
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(
