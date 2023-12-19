@@ -22,7 +22,7 @@ class UsuarioController extends StateNotifier<UsuarioState> {
   }
 
   Future<void> cerrarSesion() async {
-    updateAndNotify(state.copyWith(
+    onlyUpdate(state.copyWith(
       usuario: const UsuarioModel(
         apellido: "",
         codigo: "",
