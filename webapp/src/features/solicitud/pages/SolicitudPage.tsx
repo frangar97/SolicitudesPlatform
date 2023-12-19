@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
-import axios from "axios";
 import { APIURL } from "../../../constants";
 import { SolicitudTable } from "../components/SolicitudTable";
 import { ISolicitud } from "../interface/ISolicitud";
+import { solicitudApi } from "../../../helpers/client";
 
 export const SolicitudPage = () => {
     const [solicitudes, setSolicitudes] = useState<ISolicitud[]>([]);
 
     const obtenerSolicitudes = async () => {
         try {
-            const request = await axios.get<ISolicitud[]>(`${APIURL}/api/solicitud/aprobacion`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            const request = await solicitudApi.get<ISolicitud[]>(`api/solicitud/aprobacion`);
             setSolicitudes(request.data);
         } catch (err) {
 
@@ -18,7 +18,7 @@ export const SolicitudPage = () => {
 
     const aprobarSolicitud = async (id: number) => {
         try {
-            await axios.patch<ISolicitud[]>(`${APIURL}/api/solicitud/aprobar/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            await solicitudApi.patch<ISolicitud[]>(`${APIURL}/api/solicitud/aprobar/${id}`);
             await obtenerSolicitudes();
         } catch (err) {
 
@@ -27,7 +27,7 @@ export const SolicitudPage = () => {
 
     const cancelarSolicitud = async (id: number) => {
         try {
-            await axios.patch<ISolicitud[]>(`${APIURL}/api/solicitud/cancelar/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            await solicitudApi.patch<ISolicitud[]>(`${APIURL}/api/solicitud/cancelar/${id}`);
             await obtenerSolicitudes();
         } catch (err) {
 

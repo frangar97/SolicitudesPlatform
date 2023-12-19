@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { IUsuario } from "../interface/IUsuario";
-import { APIURL } from "../../../constants";
-import axios from "axios";
+import { solicitudApi } from "../../../helpers/client";
 
 export const useFetchUsuario = () => {
     const [usuarios, setUsuarios] = useState<IUsuario[]>([]);
 
     const obtenerUsuarios = async () => {
         try {
-            const request = await axios.get<IUsuario[]>(`${APIURL}/api/usuario`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            const request = await solicitudApi.get<IUsuario[]>(`/api/usuario`);
             setUsuarios(request.data);
         } catch (err) {
 

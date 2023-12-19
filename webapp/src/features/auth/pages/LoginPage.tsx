@@ -1,7 +1,6 @@
-import axios from "axios";
 import { useState, FormEvent } from "react";
-import { APIURL } from "../../../constants";
 import { useNavigate } from "react-router-dom";
+import { solicitudApi } from "../../../helpers/client";
 
 export const LoginPage = () => {
     const navigation = useNavigate();
@@ -17,7 +16,7 @@ export const LoginPage = () => {
                 return;
             }
 
-            const request = await axios.post<{ token: string }>(`${APIURL}/api/auth/login`, { codigo, password });
+            const request = await solicitudApi.post<{ token: string }>(`/api/auth/login`, { codigo, password });
             localStorage.setItem("token", request.data.token);
             navigation("/", { replace: true });
         } catch (err) {

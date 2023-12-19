@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useFetchUsuario } from "../hooks/useFetchUsuario";
-import axios from "axios";
 import { ITipoSolicitud } from "../../solicitud/interface/ITipoSolicitud";
-import { APIURL } from "../../../constants";
 import { UsuarioTipoSolicitudTable } from "../components/UsuarioTipoSolicitudTable";
+import { solicitudApi } from "../../../helpers/client";
 
 export const UsuarioTipoSolicitudPage = () => {
     const { usuarios } = useFetchUsuario();
@@ -13,7 +12,7 @@ export const UsuarioTipoSolicitudPage = () => {
 
     const obtenerTiposSolicitudAsignadasUsuario = async (usuarioId: number) => {
         try {
-            const request = await axios.get<ITipoSolicitud[]>(`${APIURL}/api/usuario/tiposolicitud/asignadas/${usuarioId}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            const request = await solicitudApi.get<ITipoSolicitud[]>(`/api/usuario/tiposolicitud/asignadas/${usuarioId}`);
             setZonasAsignadas(request.data);
         } catch (err) {
 
@@ -22,7 +21,7 @@ export const UsuarioTipoSolicitudPage = () => {
 
     const obtenerTiposSolicitudNoAsignadasUsuario = async (usuarioId: number) => {
         try {
-            const request = await axios.get<ITipoSolicitud[]>(`${APIURL}/api/usuario/tiposolicitud/noasignadas/${usuarioId}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            const request = await solicitudApi.get<ITipoSolicitud[]>(`/api/usuario/tiposolicitud/noasignadas/${usuarioId}`);
             setZonasNoAsignadas(request.data);
         } catch (err) {
 
@@ -46,7 +45,7 @@ export const UsuarioTipoSolicitudPage = () => {
                 return;
             }
 
-            await axios.post(`${APIURL}/api/usuario/tiposolicitud/asignar`, { usuarioId, tipoSolicitudId }, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            await solicitudApi.post(`/api/usuario/tiposolicitud/asignar`, { usuarioId, tipoSolicitudId });
             await obtenerTiposSolicitudAsignadasUsuario(usuarioId);
             await obtenerTiposSolicitudNoAsignadasUsuario(usuarioId);
         } catch (err) {
@@ -61,7 +60,7 @@ export const UsuarioTipoSolicitudPage = () => {
                 return;
             }
 
-            await axios.post(`${APIURL}/api/usuario/tiposolicitud/remover`, { usuarioId, tipoSolicitudId }, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+            await solicitudApi.post(`/api/usuario/tiposolicitud/remover`, { usuarioId, tipoSolicitudId });
             await obtenerTiposSolicitudAsignadasUsuario(usuarioId);
             await obtenerTiposSolicitudNoAsignadasUsuario(usuarioId);
         } catch (err) {
