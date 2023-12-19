@@ -67,6 +67,11 @@ namespace Persistence
                new TipoUsuarioEntity { Id = 1, Tipo = "Interno" },
                new TipoUsuarioEntity { Id = 2, Tipo = "Externo" }
                );
+
+            modelBuilder.Entity<UsuarioEntity>()
+               .HasData(
+               new UsuarioEntity { Id = 1, TipoUsuarioId = 1,GeneroId=1,Nombre="admin",Apellido="admin",Codigo="admin",Password= "$2a$11$GSQTXLhKOSHcs3N9rs9qvuCI7COj8K1cBAlSF/h43HgLoBgo/Ac1e" } 
+               );
         }
     }
 }
