@@ -50,6 +50,14 @@ namespace API.Controllers
             return Ok(solicitudesDTO);
         }
 
+        [HttpGet("cantidadporestado")]
+        public IActionResult ObtenerSolicitudesCantidadPorEstado()
+        {
+            
+            SolicitudCantidadEstadoDTO solicitudesDTO = _solicitudService.ObtenerCantidadPorEstado();
+            return Ok(solicitudesDTO);
+        }
+
         [HttpPatch("aprobar/{id}")]
         public async Task<IActionResult> AprobarSolicitud(int id)
         {

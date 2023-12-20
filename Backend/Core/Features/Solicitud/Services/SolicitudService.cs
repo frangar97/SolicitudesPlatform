@@ -91,6 +91,15 @@ namespace Core.Features.Solicitud.Services
             return solicitudDTO;
         }
 
+        public SolicitudCantidadEstadoDTO ObtenerCantidadPorEstado()
+        {
+            int cantidadAprobadas = _unitOfWork.SolicitudRepository.Where(x => x.EstadoSolicitudId == (int)EstadoSolicitudEnum.Aprobado).Count();
+            int cantidadCanceladas = _unitOfWork.SolicitudRepository.Where(x => x.EstadoSolicitudId == (int)EstadoSolicitudEnum.Cancelado).Count();
+            int cantidadPendientes = _unitOfWork.SolicitudRepository.Where(x => x.EstadoSolicitudId == (int)EstadoSolicitudEnum.Pendiente).Count();
+
+            return new SolicitudCantidadEstadoDTO { Aprobadas = cantidadAprobadas, Canceladas = cantidadCanceladas, Pendientes = cantidadPendientes };
+        }
+
         public IEnumerable<SolicitudDTO> ObtnerSolicitudesAprobacionUsuario(int usuarioId)
         {
             IEnumerable<int> zonasUsuario = _unitOfWork.UsuarioZonaRepository.Where(x => x.UsuarioId == usuarioId && x.Activo == true).Select(x => x.ZonaId);

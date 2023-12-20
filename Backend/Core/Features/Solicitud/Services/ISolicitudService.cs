@@ -9,5 +9,6 @@ namespace Core.Features.Solicitud.Services
         Task CancelarSolicitud(int solicitudId);
         IEnumerable<SolicitudDTO> ObtnerSolicitudesAprobacionUsuario(int usuarioId);
         IEnumerable<SolicitudDTO> ObtnerSolicitudesUsuario(int usuarioId);
+        SolicitudCantidadEstadoDTO ObtenerCantidadPorEstado();
     }
 }
