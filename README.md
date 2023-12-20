@@ -12,7 +12,7 @@
 
 ## Ejecutar localmente
 
-Para ejecutar la aplicación localmente es necesario ejecutar el proyecto Backend en Visual Studio y una vez arriba
+Para ejecutar la aplicación localmente es necesario ejecutar el proyecto Backend en Visual Studio y una vez arriba se corren las migraciones automaticamente y luego
 copiar el enlace del api y reemplazarlos en el archivo de constants en el proyecto web y movil.
 
 En el dispositivo movil se tiene que hacer un paso extra y es correr el comando `adb reverse tcp:PUERTO tcp:PUERTO` ya que
