@@ -3,6 +3,7 @@ import { APIURL } from "../../../constants";
 import { SolicitudTable } from "../components/SolicitudTable";
 import { ISolicitud } from "../interface/ISolicitud";
 import { solicitudApi } from "../../../helpers/client";
+import { handleError } from "../../../helpers/handle_error";
 
 export const SolicitudPage = () => {
     const [solicitudes, setSolicitudes] = useState<ISolicitud[]>([]);
@@ -12,7 +13,7 @@ export const SolicitudPage = () => {
             const request = await solicitudApi.get<ISolicitud[]>(`api/solicitud/aprobacion`);
             setSolicitudes(request.data);
         } catch (err) {
-
+            handleError(err);
         }
     }
 
@@ -21,7 +22,7 @@ export const SolicitudPage = () => {
             await solicitudApi.patch<ISolicitud[]>(`${APIURL}/api/solicitud/aprobar/${id}`);
             await obtenerSolicitudes();
         } catch (err) {
-
+            handleError(err);
         }
     }
 
@@ -30,7 +31,7 @@ export const SolicitudPage = () => {
             await solicitudApi.patch<ISolicitud[]>(`${APIURL}/api/solicitud/cancelar/${id}`);
             await obtenerSolicitudes();
         } catch (err) {
-
+            handleError(err);
         }
     }
 

@@ -3,6 +3,7 @@ import { useFetchUsuario } from "../hooks/useFetchUsuario";
 import { ITipoSolicitud } from "../../solicitud/interface/ITipoSolicitud";
 import { UsuarioTipoSolicitudTable } from "../components/UsuarioTipoSolicitudTable";
 import { solicitudApi } from "../../../helpers/client";
+import { handleError } from "../../../helpers/handle_error";
 
 export const UsuarioTipoSolicitudPage = () => {
     const { usuarios } = useFetchUsuario();
@@ -15,7 +16,7 @@ export const UsuarioTipoSolicitudPage = () => {
             const request = await solicitudApi.get<ITipoSolicitud[]>(`/api/usuario/tiposolicitud/asignadas/${usuarioId}`);
             setZonasAsignadas(request.data);
         } catch (err) {
-
+            handleError(err);
         }
     }
 
@@ -24,7 +25,7 @@ export const UsuarioTipoSolicitudPage = () => {
             const request = await solicitudApi.get<ITipoSolicitud[]>(`/api/usuario/tiposolicitud/noasignadas/${usuarioId}`);
             setZonasNoAsignadas(request.data);
         } catch (err) {
-
+            handleError(err);
         }
     }
 
@@ -34,7 +35,7 @@ export const UsuarioTipoSolicitudPage = () => {
             await obtenerTiposSolicitudAsignadasUsuario(id);
             await obtenerTiposSolicitudNoAsignadasUsuario(id);
         } catch (err) {
-
+            handleError(err);
         }
     }
 

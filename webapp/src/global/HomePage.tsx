@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { ISolicitudCantidadEstado } from "./interface/ISolicitudCantidadEstado";
 import { solicitudApi } from "../helpers/client";
+import { handleError } from "../helpers/handle_error";
 
 export const HomePage = () => {
     const [estado, setEstado] = useState<ISolicitudCantidadEstado>({ pendientes: 0, canceladas: 0, aprobadas: 0 });
@@ -9,7 +10,9 @@ export const HomePage = () => {
         try {
             const request = await solicitudApi.get<ISolicitudCantidadEstado>("/api/solicitud/cantidadporestado");
             setEstado(request.data);
-        } catch (err) { }
+        } catch (err) {
+            handleError(err);
+        }
     }
 
     useEffect(() => {

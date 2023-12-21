@@ -1,6 +1,7 @@
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { solicitudApi } from "../../../helpers/client";
+import { handleError } from "../../../helpers/handle_error";
 
 export const LoginPage = () => {
     const navigation = useNavigate();
@@ -20,7 +21,7 @@ export const LoginPage = () => {
             localStorage.setItem("token", request.data.token);
             navigation("/", { replace: true });
         } catch (err) {
-
+            handleError(err);
         }
     }
 
